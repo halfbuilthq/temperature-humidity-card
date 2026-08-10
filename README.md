@@ -8,7 +8,7 @@ A sensor-only room-comfort card for Home Assistant dashboards. It combines
 temperature, humidity, comfort exceptions, a 24-hour range, and a compact
 trend without exposing thermostat or air-conditioning controls.
 
-![Temperature & Humidity Card dashboard](docs/temperature-humidity-card-dashboard.png)
+![Temperature & Humidity Card preview](docs/production-preview.png)
 
 ## Features
 

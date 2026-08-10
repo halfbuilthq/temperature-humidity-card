@@ -4,7 +4,7 @@ A sensor-only Home Assistant card for room temperature, humidity, comfort
 exceptions, and 24-hour trends. It intentionally provides no thermostat or
 air-conditioning controls.
 
-![Temperature & Humidity Card dashboard](docs/temperature-humidity-card-dashboard.png)
+![Temperature & Humidity Card preview](docs/production-preview.png)
 
 ## Highlights
 
@@ -23,4 +23,3 @@ humidity_entity: sensor.room_humidity
 ```
 
 See the repository README for the complete configuration and threshold options.
-

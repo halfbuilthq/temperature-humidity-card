@@ -11,3 +11,5 @@ dist/*.map
 /implementation-*.png
 /design-qa*.png
 /design-qa.md
+/docs/*-draft.png
+/docs/promo-reference-comparison.png

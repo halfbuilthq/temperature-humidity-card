@@ -1,0 +1,101 @@
+:root {
+  color: #111522;
+  background: #eef2f5;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+main {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: minmax(300px, 390px) minmax(520px, 566px);
+  gap: clamp(54px, 7vw, 96px);
+  align-items: center;
+  justify-content: center;
+  padding: 42px;
+}
+
+.promo-copy {
+  align-self: center;
+}
+
+.eyebrow {
+  color: #1976d2;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 8ch;
+  margin: 12px 0 14px;
+  font-size: clamp(42px, 4.6vw, 58px);
+  line-height: 0.98;
+  letter-spacing: -0.048em;
+}
+
+.promo-copy p {
+  max-width: 36ch;
+  margin: 0;
+  color: #687286;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.card-showcase {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+temperature-humidity-card {
+  min-width: 0;
+  --primary-text-color: #f1f5f9;
+  --secondary-text-color: #a9b3be;
+  --ha-card-background: #172129;
+  --card-background-color: #172129;
+  --divider-color: #60707d;
+  --warning-color: #ff9f2f;
+}
+
+@media (max-width: 960px) {
+  main {
+    grid-template-columns: minmax(520px, 566px);
+  }
+
+  .promo-copy {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  main {
+    display: block;
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .card-showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
