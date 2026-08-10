@@ -1,0 +1,13 @@
+node_modules/
+coverage/
+.DS_Store
+.env
+.env.*
+
+# Keep the HACS-installable bundle, but not its large development source map.
+dist/*.map
+
+# Local design iterations. Final evidence is versioned under docs/.
+/implementation-*.png
+/design-qa*.png
+/design-qa.md

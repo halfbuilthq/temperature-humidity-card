@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature & Humidity Card</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Home Assistant navigation">
+        <div class="brand">
+          <span class="icon-slot" data-icon="menu"></span>
+          <strong>Home Assistant</strong>
+        </div>
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a class="selected" href="#"><span class="icon-slot" data-icon="tablet"></span>Tablet</a>
+          <a href="#"><span class="icon-slot" data-icon="map"></span>Map</a>
+          <a href="#"><span class="icon-slot" data-icon="energy"></span>Energy</a>
+          <a href="#"><span class="icon-slot" data-icon="camera"></span>Frigate</a>
+          <a href="#"><span class="icon-slot" data-icon="calendar"></span>Calendar</a>
+          <a href="#"><span class="icon-slot" data-icon="file"></span>File editor</a>
+          <a href="#"><span class="icon-slot" data-icon="tools"></span>ESPHome Builder</a>
+          <a href="#"><span class="icon-slot" data-icon="store"></span>HACS</a>
+          <a href="#"><span class="icon-slot" data-icon="network"></span>Node-RED</a>
+          <a href="#"><span class="icon-slot" data-icon="terminal"></span>Terminal</a>
+          <a href="#"><span class="icon-slot" data-icon="activity"></span>Activity</a>
+          <a href="#"><span class="icon-slot" data-icon="dashboard"></span>Tablet</a>
+          <a href="#"><span class="icon-slot" data-icon="dashboard"></span>A9+ Tablet YAML</a>
+          <a href="#"><span class="icon-slot" data-icon="home"></span>Overview</a>
+          <a href="#"><span class="icon-slot" data-icon="music"></span>Music Assistant</a>
+        </nav>
+        <div class="sidebar-footer">
+          <a href="#"><span class="icon-slot" data-icon="settings"></span>Settings <b>10</b></a>
+          <a href="#"><span class="icon-slot" data-icon="bell"></span>Notifications <b>1</b></a>
+          <a href="#"><span class="icon-slot" data-icon="account"></span>Kurt</a>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <nav class="tabs" aria-label="Dashboard views">
+            <a href="#">Home</a>
+            <a href="#">Brewery</a>
+            <a href="#">Laundry</a>
+            <a href="#">Kitchen</a>
+            <a class="active" href="#">Indoor climate</a>
+          </nav>
+          <div class="actions" aria-label="Dashboard actions">
+            <button type="button" aria-label="Add"><span class="icon-slot" data-icon="plus"></span></button>
+            <button type="button" aria-label="Search"><span class="icon-slot" data-icon="search"></span></button>
+            <button type="button" aria-label="Messages"><span class="icon-slot" data-icon="message"></span></button>
+            <button type="button" aria-label="Edit"><span class="icon-slot" data-icon="edit"></span></button>
+          </div>
+        </header>
+        <section class="climate-grid" aria-label="Indoor climate by room"></section>
+      </section>
+    </main>
+    <script type="module" src="/demo/dashboard.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a reproducible problem with the card.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a problem.
+
+  - type: input
+    id: card-version
+    attributes:
+      label: Card version
+      placeholder: v0.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: home-assistant-version
+    attributes:
+      label: Home Assistant version
+      placeholder: 2026.8.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Card configuration
+      description: Remove entity names or other details you consider sensitive.
+      render: yaml
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include what you expected and what you observed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Add the card...
+        2. Open the dashboard...
+        3. Observe...
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console output
+      render: text
+

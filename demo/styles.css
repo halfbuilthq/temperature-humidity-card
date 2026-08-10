@@ -1,0 +1,243 @@
+:root {
+  color-scheme: dark;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --primary-text-color: #eef2f7;
+  --secondary-text-color: #a9b1bb;
+  --card-background-color: rgba(20, 26, 33, 0.96);
+  --ha-card-background: rgba(20, 26, 33, 0.96);
+  --divider-color: #5f6974;
+  --error-color: #ee6c6c;
+  --warning-color: #ff9f2f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 1024px;
+  height: 100%;
+  min-height: 640px;
+  margin: 0;
+  overflow: hidden;
+  background: #090e13;
+}
+
+button,
+a {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.app-shell {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: 240px minmax(0, 1fr);
+  background: #0b1117;
+}
+
+.sidebar {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  grid-template-rows: 56px minmax(0, 1fr) auto;
+  border-right: 1px solid rgba(154, 169, 184, 0.16);
+  background: #15191c;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(154, 169, 184, 0.15);
+  font-size: 19px;
+  letter-spacing: 0.1px;
+}
+
+.brand strong {
+  font-weight: 450;
+}
+
+.sidebar-nav {
+  display: flex;
+  min-height: 0;
+  padding: 10px 5px 4px;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.sidebar a,
+.sidebar-footer a {
+  display: grid;
+  min-height: 40px;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 3px;
+  color: #eef1f5;
+  font-size: 13px;
+}
+
+.sidebar a.selected {
+  color: #49b8ff;
+  background: #21313b;
+}
+
+.sidebar a:hover,
+.sidebar-footer a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-footer {
+  padding: 5px 5px 10px;
+  border-top: 1px solid rgba(154, 169, 184, 0.12);
+}
+
+.sidebar-footer b {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #f39a24;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.icon-slot,
+.actions button {
+  display: grid;
+  place-items: center;
+}
+
+.icon-slot svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+  opacity: 0.78;
+}
+
+.workspace {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  grid-template-rows: 56px minmax(0, 1fr);
+  background: #0d1319;
+}
+
+.topbar {
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(154, 169, 184, 0.16);
+  background: #141719;
+}
+
+.tabs {
+  display: flex;
+  align-items: stretch;
+  padding-left: 14px;
+}
+
+.tabs a {
+  position: relative;
+  display: flex;
+  min-width: 84px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  color: #d7dbe0;
+  font-size: 13px;
+}
+
+.tabs a.active {
+  color: #fff;
+}
+
+.tabs a.active::after {
+  position: absolute;
+  right: 13px;
+  bottom: 0;
+  left: 13px;
+  height: 2px;
+  background: #eef5fb;
+  content: "";
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.actions button {
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  border: 0;
+  color: #f3f5f7;
+  background: transparent;
+}
+
+.actions button:hover {
+  color: #58b9ff;
+}
+
+.climate-grid {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+}
+
+temperature-humidity-card {
+  display: block;
+  min-width: 0;
+  min-height: 0;
+}
+
+ha-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+ha-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+@media (max-width: 1120px) {
+  .app-shell {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+
+  .sidebar a,
+  .sidebar-footer a {
+    padding-inline: 11px;
+  }
+
+  .tabs a {
+    min-width: 74px;
+    padding-inline: 8px;
+  }
+}
