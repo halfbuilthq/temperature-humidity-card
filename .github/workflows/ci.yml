@@ -30,9 +30,8 @@ jobs:
         run: npm run check
 
       - name: Upload HACS bundle
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: temperature-humidity-card
           path: dist/temperature-humidity-card.js
           if-no-files-found: error
-
