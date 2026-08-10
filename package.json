@@ -21,7 +21,7 @@
   "type": "module",
   "main": "dist/temperature-humidity-card.js",
   "files": [
-    "dist",
+    "dist/temperature-humidity-card.js",
     "README.md",
     "hacs.json"
   ],
