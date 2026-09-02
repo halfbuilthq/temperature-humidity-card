@@ -7,6 +7,18 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-02
+
+### Added
+
+- Mouse, touch, and keyboard inspection for the history sparkline.
+- Point-in-time temperature and humidity tooltips.
+
+### Changed
+
+- Standardized card, marker, and tooltip backgrounds on Home Assistant's
+  current theme variables with legacy fallbacks.
+
 ## [0.1.0] - 2026-08-10
 
 ### Added
@@ -17,4 +29,3 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - Optional low-battery warning that stays hidden while healthy.
 - Native Home Assistant visual configuration form.
 - HACS-compatible distribution bundle.
-

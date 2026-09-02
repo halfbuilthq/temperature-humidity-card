@@ -14,7 +14,14 @@ import {
   normalizeConfig,
   validateConfig
 } from "./config";
-import { CHART_HEIGHT, CHART_WIDTH, sparklinePath } from "./chart";
+import {
+  CHART_HEIGHT,
+  CHART_WIDTH,
+  chartPositionPercent,
+  nearestChartPointIndex,
+  sparklinePath,
+  sparklinePoint
+} from "./chart";
 import { fetchRoomHistory } from "./history";
 import { cardStyles } from "./styles";
 import type {
@@ -104,7 +111,8 @@ export class TemperatureHumidityCard extends LitElement {
     _config: { state: true },
     _history: { state: true },
     _historyLoading: { state: true },
-    _historyFailed: { state: true }
+    _historyFailed: { state: true },
+    _activeChartIndex: { state: true }
   };
 
   static styles = cardStyles;
@@ -114,6 +122,7 @@ export class TemperatureHumidityCard extends LitElement {
   private _history: HistoryPoint[] = [];
   private _historyLoading = false;
   private _historyFailed = false;
+  private _activeChartIndex?: number;
   private _lastHistoryKey = "";
   private _lastHistoryFetch = 0;
 
@@ -198,6 +207,46 @@ export class TemperatureHumidityCard extends LitElement {
     );
   }
 
+  private _inspectChart(event: PointerEvent, pointCount: number): void {
+    const target = event.currentTarget as HTMLElement;
+    const bounds = target.getBoundingClientRect();
+    const index = nearestChartPointIndex(
+      event.clientX,
+      bounds.left,
+      bounds.width,
+      pointCount
+    );
+    if (index !== this._activeChartIndex) this._activeChartIndex = index;
+  }
+
+  private _leaveChart(event: PointerEvent): void {
+    if (event.pointerType === "mouse") this._clearChartInspection();
+  }
+
+  private _clearChartInspection(): void {
+    this._activeChartIndex = undefined;
+  }
+
+  private _navigateChart(event: KeyboardEvent, pointCount: number): void {
+    if (event.key === "Escape") {
+      this._activeChartIndex = undefined;
+      return;
+    }
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+
+    event.preventDefault();
+    const current = this._activeChartIndex ?? pointCount - 1;
+    this._activeChartIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? pointCount - 1
+          : Math.min(
+              pointCount - 1,
+              Math.max(0, current + (event.key === "ArrowLeft" ? -1 : 1))
+            );
+  }
+
   private _renderGauge(progress: number) {
     const marker = markerPoint(progress);
     return svg`
@@ -256,7 +305,35 @@ export class TemperatureHumidityCard extends LitElement {
       .filter((value): value is number => value !== undefined);
     const minimum = temperatures.length ? Math.min(...temperatures) : temperature;
     const maximum = temperatures.length ? Math.max(...temperatures) : temperature;
-    const path = sparklinePath(history.map((point) => point.temperature));
+    const temperatureHistory = history.map((point) => point.temperature);
+    const path = sparklinePath(temperatureHistory);
+    const activeIndex =
+      this._activeChartIndex === undefined
+        ? undefined
+        : Math.min(history.length - 1, Math.max(0, this._activeChartIndex));
+    const activePoint =
+      activeIndex === undefined ? undefined : history[activeIndex];
+    const activeCoordinate =
+      activeIndex === undefined
+        ? undefined
+        : sparklinePoint(temperatureHistory, activeIndex);
+    const activePosition =
+      activeIndex === undefined
+        ? undefined
+        : chartPositionPercent(activeIndex, history.length);
+    const tooltipPlacement =
+      activePosition !== undefined && activePosition > 50
+        ? "place-left"
+        : "place-right";
+    const tooltipStyle = `left: ${activePosition ?? 0}%`;
+    const tooltipTime = activePoint
+      ? new Intl.DateTimeFormat(this._locale, {
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        }).format(activePoint.timestamp)
+      : "";
     const showStatus = status.key !== "comfortable";
     const showLowBattery = lowBattery(battery, config.low_battery_threshold ?? 25);
 
@@ -340,11 +417,20 @@ export class TemperatureHumidityCard extends LitElement {
                             Min
                             <strong>${formatNumber(minimum, this._locale)}${unit}</strong>
                           </span>
-                          <button
-                            class="sparkline-button"
-                            type="button"
-                            @click=${() => this._openMoreInfo(config.temperature_entity)}
-                            aria-label=${`Open ${config.history_hours ?? 24} hour temperature history`}
+                          <div
+                            class="sparkline-wrap"
+                            role="group"
+                            tabindex="0"
+                            aria-label=${`Inspect ${config.history_hours ?? 24} hour temperature and humidity history. Use the left and right arrow keys to move through readings.`}
+                            @pointerdown=${(event: PointerEvent) =>
+                              this._inspectChart(event, history.length)}
+                            @pointermove=${(event: PointerEvent) =>
+                              this._inspectChart(event, history.length)}
+                            @pointerleave=${this._leaveChart}
+                            @pointercancel=${this._clearChartInspection}
+                            @keydown=${(event: KeyboardEvent) =>
+                              this._navigateChart(event, history.length)}
+                            @blur=${this._clearChartInspection}
                           >
                             <svg
                               class="sparkline"
@@ -361,8 +447,59 @@ export class TemperatureHumidityCard extends LitElement {
                                 y2=${CHART_HEIGHT - 1}
                               ></line>
                               <path class="sparkline-path" d=${path}></path>
+                              ${activePosition !== undefined
+                                ? svg`
+                                    <line
+                                      class="inspection-line"
+                                      x1=${(activePosition / 100) * CHART_WIDTH}
+                                      y1="0"
+                                      x2=${(activePosition / 100) * CHART_WIDTH}
+                                      y2=${CHART_HEIGHT}
+                                    ></line>
+                                  `
+                                : nothing}
+                              ${activeCoordinate
+                                ? svg`
+                                    <circle
+                                      class="inspection-dot"
+                                      cx=${activeCoordinate[0]}
+                                      cy=${activeCoordinate[1]}
+                                      r="2.8"
+                                    ></circle>
+                                  `
+                                : nothing}
                             </svg>
-                          </button>
+                            ${activePoint && activePosition !== undefined
+                              ? html`
+                                  <div
+                                    class="chart-tooltip ${tooltipPlacement}"
+                                    style=${tooltipStyle}
+                                    aria-live="polite"
+                                  >
+                                    <time>${tooltipTime}</time>
+                                    <div class="tooltip-item temperature-series">
+                                      <span><i></i>Temperature</span>
+                                      <strong
+                                        >${formatNumber(
+                                          activePoint.temperature,
+                                          this._locale
+                                        )}${unit}</strong
+                                      >
+                                    </div>
+                                    <div class="tooltip-item humidity-series">
+                                      <span><i></i>Humidity</span>
+                                      <strong
+                                        >${formatNumber(
+                                          activePoint.humidity,
+                                          this._locale,
+                                          0
+                                        )}%</strong
+                                      >
+                                    </div>
+                                  </div>
+                                `
+                              : nothing}
+                          </div>
                           <span class="range max">
                             Max
                             <strong>${formatNumber(maximum, this._locale)}${unit}</strong>

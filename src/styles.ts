@@ -302,12 +302,19 @@ export const cardStyles = css`
     font-weight: 560;
   }
 
-  .sparkline-button {
+  .sparkline-wrap {
+    position: relative;
     min-width: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
+    height: 34px;
+    border-radius: 6px;
+    outline: none;
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .sparkline-wrap:focus-visible {
+    outline: 2px solid var(--comfort-accent);
+    outline-offset: 3px;
   }
 
   .sparkline {
@@ -315,6 +322,7 @@ export const cardStyles = css`
     width: 100%;
     height: 34px;
     overflow: visible;
+    pointer-events: none;
   }
 
   .sparkline-baseline {
@@ -330,6 +338,99 @@ export const cardStyles = css`
     stroke-linejoin: round;
     stroke-width: 1.8;
     vector-effect: non-scaling-stroke;
+  }
+
+  .inspection-line {
+    stroke: var(--primary-text-color, #f4f7fb);
+    stroke-dasharray: 2 3;
+    stroke-opacity: 0.44;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .inspection-dot {
+    fill: var(--comfort-accent);
+    stroke: var(--ha-card-background, var(--card-background-color, #141a21));
+    stroke-width: 1.8;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .chart-tooltip {
+    position: absolute;
+    bottom: calc(100% + 9px);
+    z-index: 4;
+    width: 174px;
+    padding: 9px 10px;
+    border: 1px solid
+      color-mix(in srgb, var(--primary-text-color, #f4f7fb) 14%, transparent);
+    border-radius: 10px;
+    color: var(--primary-text-color, #f4f7fb);
+    background: color-mix(
+      in srgb,
+      var(--ha-card-background, var(--card-background-color, #141a21)) 95%,
+      transparent
+    );
+    box-shadow: 0 7px 22px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    backdrop-filter: blur(8px);
+  }
+
+  .chart-tooltip.place-right {
+    margin-left: 10px;
+  }
+
+  .chart-tooltip.place-left {
+    margin-left: -10px;
+    transform: translateX(-100%);
+  }
+
+  .chart-tooltip time {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--secondary-text-color, #a8b2bd);
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .tooltip-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+    font-size: 11px;
+  }
+
+  .tooltip-item + .tooltip-item {
+    margin-top: 4px;
+  }
+
+  .tooltip-item span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .tooltip-item i {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .tooltip-item.temperature-series {
+    color: var(--comfort-accent);
+  }
+
+  .tooltip-item.humidity-series {
+    color: #58b9ff;
+  }
+
+  .tooltip-item strong {
+    color: var(--primary-text-color, #f4f7fb);
+    font-size: 11px;
+    white-space: nowrap;
   }
 
   .history-placeholder {

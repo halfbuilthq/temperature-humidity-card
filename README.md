@@ -16,6 +16,7 @@ trend without exposing thermostat or air-conditioning controls.
 - Clear Cold, Warm, Dry, Humid, mixed and unavailable states
 - Configurable comfort thresholds
 - Temperature history with minimum, maximum and sparkline
+- Mouse, touch and keyboard chart inspection with temperature and humidity tooltips
 - Optional sensor battery warning that stays hidden while healthy
 - Native Home Assistant visual configuration
 - Responsive sizing for grids and room views
