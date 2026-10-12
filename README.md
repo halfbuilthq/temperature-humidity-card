@@ -62,6 +62,23 @@ humidity_entity: sensor.room_humidity
 
 The temperature and humidity sensors do not need to come from the same device.
 
+### Dashboard sizing
+
+In a Sections dashboard, the card defaults to the full 12-column section and
+supports resizing down to 6 columns in the Layout tab. For two cards side by
+side, set each card to 6 columns:
+
+```yaml
+grid_options:
+  columns: 6
+  rows: auto
+```
+
+The gauge and readings scale with the available card width. At compact widths,
+the history graph appears above the minimum and maximum readings. Keep rows
+set to `auto` so the card can grow when labels wrap. No custom scaling setting
+is needed.
+
 ## Installation with HACS
 
 Until this repository is accepted into the default HACS catalogue, add it as a

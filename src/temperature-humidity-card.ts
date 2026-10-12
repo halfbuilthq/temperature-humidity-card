@@ -145,8 +145,8 @@ export class TemperatureHumidityCard extends LitElement {
 
   getGridOptions() {
     return {
-      columns: 3,
-      min_columns: 3,
+      columns: 12,
+      min_columns: 6,
       rows: "auto"
     };
   }

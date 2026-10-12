@@ -31,7 +31,7 @@ export const cardStyles = css`
   ha-card {
     display: block;
     height: 100%;
-    min-height: 318px;
+    min-height: 0;
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--divider-color, #66717c) 44%, transparent);
     border-radius: var(--ha-card-border-radius, 22px);
@@ -73,7 +73,9 @@ export const cardStyles = css`
   .card {
     position: relative;
     display: grid;
-    min-height: 318px;
+    min-width: 0;
+    min-height: clamp(240px, calc(100cqw + 64px), 318px);
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr) auto;
     padding: 16px 16px 13px;
   }
@@ -167,16 +169,20 @@ export const cardStyles = css`
   .dial {
     position: relative;
     display: grid;
-    min-height: 226px;
+    width: min(100%, 254px);
+    min-width: 0;
+    aspect-ratio: 254 / 226;
+    place-self: center;
     place-items: center;
+    container-type: inline-size;
   }
 
   .gauge {
     position: absolute;
     top: 2px;
     left: 50%;
-    width: 254px;
-    height: 205px;
+    width: 100%;
+    height: auto;
     overflow: visible;
     transform: translateX(-50%);
   }
@@ -215,7 +221,7 @@ export const cardStyles = css`
     position: relative;
     z-index: 1;
     display: flex;
-    margin-top: 35px;
+    margin-top: 14cqw;
     flex-direction: column;
     align-items: center;
   }
@@ -234,34 +240,34 @@ export const cardStyles = css`
     align-items: center;
     justify-content: center;
     color: var(--primary-text-color, #f4f7fb);
-    font-size: clamp(54px, 24cqw, 62px);
+    font-size: clamp(24px, 24cqw, 62px);
     font-weight: 480;
     letter-spacing: -2.6px;
     line-height: 0.98;
   }
 
   .temperature small {
-    margin-top: 4px;
+    margin-top: 1.6cqw;
     color: var(--secondary-text-color, #a8b2bd);
-    font-size: 15px;
+    font-size: clamp(10px, 6cqw, 15px);
     font-weight: 550;
     letter-spacing: -0.2px;
   }
 
   .humidity {
     gap: 5px;
-    margin-top: 9px;
+    margin-top: 3.5cqw;
     color: var(--primary-text-color, #f4f7fb);
   }
 
   .humidity svg {
-    width: 20px;
-    height: 20px;
+    width: clamp(14px, 8cqw, 20px);
+    height: clamp(14px, 8cqw, 20px);
     fill: #58b9ff;
   }
 
   .humidity strong {
-    font-size: 20px;
+    font-size: clamp(14px, 8cqw, 20px);
     font-weight: 580;
     letter-spacing: -0.5px;
   }
@@ -275,7 +281,8 @@ export const cardStyles = css`
 
   .history {
     display: grid;
-    grid-template-columns: minmax(44px, auto) minmax(70px, 1fr) minmax(44px, auto);
+    min-width: 0;
+    grid-template-columns: minmax(44px, auto) minmax(0, 1fr) minmax(44px, auto);
     gap: 8px;
     align-items: end;
     min-height: 50px;
@@ -394,6 +401,7 @@ export const cardStyles = css`
 
   .tooltip-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 9px;
@@ -452,15 +460,43 @@ export const cardStyles = css`
       padding-inline: 13px;
     }
 
-    .status {
-      max-width: 76px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .header {
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
-    .gauge {
-      width: 238px;
+    .room {
+      max-width: 100%;
+    }
+
+    .history {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .sparkline-wrap {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+
+    .range {
+      grid-row: 2;
+    }
+
+    .battery-warning {
+      position: static;
+      justify-self: end;
+      margin-top: 4px;
+    }
+  }
+
+  @container (max-width: 419px) {
+    .chart-tooltip.place-left,
+    .chart-tooltip.place-right {
+      left: 50% !important;
+      width: min(174px, calc(100cqw - 28px));
+      margin-left: 0;
+      transform: translateX(-50%);
     }
   }
 
@@ -479,12 +515,8 @@ export const cardStyles = css`
     }
 
     .dial {
-      min-height: 232px;
-    }
-
-    .gauge {
-      width: 270px;
-      height: 212px;
+      width: min(100%, 270px);
+      aspect-ratio: 270 / 232;
     }
   }
 

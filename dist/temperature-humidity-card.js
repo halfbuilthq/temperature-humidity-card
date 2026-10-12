@@ -1,4 +1,4 @@
-var Dt = "M14 20H6V6H14M14.67 4H13V2H7V4H5.33C4.6 4 4 4.6 4 5.33V20.67C4 21.4 4.6 22 5.33 22H14.67C15.4 22 16 21.4 16 20.67V5.33C16 4.6 15.4 4 14.67 4M21 7H19V13H21V8M21 15H19V17H21V15Z", Bt = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z", Ft = "M20.79,13.95L18.46,14.57L16.46,13.44V10.56L18.46,9.43L20.79,10.05L21.31,8.12L19.54,7.65L20,5.88L18.07,5.36L17.45,7.69L15.45,8.82L13,7.38V5.12L14.71,3.41L13.29,2L12,3.29L10.71,2L9.29,3.41L11,5.12V7.38L8.5,8.82L6.5,7.69L5.92,5.36L4,5.88L4.47,7.65L2.7,8.12L3.22,10.05L5.55,9.43L7.55,10.56V13.45L5.55,14.58L3.22,13.96L2.7,15.89L4.47,16.36L4,18.12L5.93,18.64L6.55,16.31L8.55,15.18L11,16.62V18.88L9.29,20.59L10.71,22L12,20.71L13.29,22L14.7,20.59L13,18.88V16.62L15.5,15.17L17.5,16.3L18.12,18.63L20,18.12L19.53,16.35L21.3,15.88L20.79,13.95M9.5,10.56L12,9.11L14.5,10.56V13.44L12,14.89L9.5,13.44V10.56Z", jt = "M17 13V7H19V13H17M17 17V15H19V17H17M13 13V5C13 3.3 11.7 2 10 2S7 3.3 7 5V13C4.8 14.7 4.3 17.8 6 20S10.8 22.7 13 21 15.7 16.2 14 14C13.7 13.6 13.4 13.3 13 13M10 4C10.6 4 11 4.4 11 5V8H9V5C9 4.4 9.4 4 10 4Z", bt = "M12,3.25C12,3.25 6,10 6,14C6,17.32 8.69,20 12,20A6,6 0 0,0 18,14C18,10 12,3.25 12,3.25M14.47,9.97L15.53,11.03L9.53,17.03L8.47,15.97M9.75,10A1.25,1.25 0 0,1 11,11.25A1.25,1.25 0 0,1 9.75,12.5A1.25,1.25 0 0,1 8.5,11.25A1.25,1.25 0 0,1 9.75,10M14.25,14.5A1.25,1.25 0 0,1 15.5,15.75A1.25,1.25 0 0,1 14.25,17A1.25,1.25 0 0,1 13,15.75A1.25,1.25 0 0,1 14.25,14.5Z", Gt = "M20 7V13H18V7H20M18 17H20V15H18V17M10 3.25C10 3.25 4 10 4 14C4 17.32 6.69 20 10 20S16 17.31 16 14C16 10 10 3.25 10 3.25M7.75 10C8.44 10 9 10.56 9 11.25S8.44 12.5 7.75 12.5 6.5 11.94 6.5 11.25 7.06 10 7.75 10M12.25 17C11.56 17 11 16.44 11 15.75S11.56 14.5 12.25 14.5 13.5 15.06 13.5 15.75 12.94 17 12.25 17M7.53 17.03L6.47 15.97L12.47 9.97L13.53 11.03L7.53 17.03Z", Wt = "M4,10A1,1 0 0,1 3,9A1,1 0 0,1 4,8H12A2,2 0 0,0 14,6A2,2 0 0,0 12,4C11.45,4 10.95,4.22 10.59,4.59C10.2,5 9.56,5 9.17,4.59C8.78,4.2 8.78,3.56 9.17,3.17C9.9,2.45 10.9,2 12,2A4,4 0 0,1 16,6A4,4 0 0,1 12,10H4M19,12A1,1 0 0,0 20,11A1,1 0 0,0 19,10C18.72,10 18.47,10.11 18.29,10.29C17.9,10.68 17.27,10.68 16.88,10.29C16.5,9.9 16.5,9.27 16.88,8.88C17.42,8.34 18.17,8 19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14H5A1,1 0 0,1 4,13A1,1 0 0,1 5,12H19M18,18H4A1,1 0 0,1 3,17A1,1 0 0,1 4,16H18A3,3 0 0,1 21,19A3,3 0 0,1 18,22C17.17,22 16.42,21.66 15.88,21.12C15.5,20.73 15.5,20.1 15.88,19.71C16.27,19.32 16.9,19.32 17.29,19.71C17.47,19.89 17.72,20 18,20A1,1 0 0,0 19,19A1,1 0 0,0 18,18Z";
+var Dt = "M14 20H6V6H14M14.67 4H13V2H7V4H5.33C4.6 4 4 4.6 4 5.33V20.67C4 21.4 4.6 22 5.33 22H14.67C15.4 22 16 21.4 16 20.67V5.33C16 4.6 15.4 4 14.67 4M21 7H19V13H21V8M21 15H19V17H21V15Z", Bt = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z", Ft = "M20.79,13.95L18.46,14.57L16.46,13.44V10.56L18.46,9.43L20.79,10.05L21.31,8.12L19.54,7.65L20,5.88L18.07,5.36L17.45,7.69L15.45,8.82L13,7.38V5.12L14.71,3.41L13.29,2L12,3.29L10.71,2L9.29,3.41L11,5.12V7.38L8.5,8.82L6.5,7.69L5.92,5.36L4,5.88L4.47,7.65L2.7,8.12L3.22,10.05L5.55,9.43L7.55,10.56V13.45L5.55,14.58L3.22,13.96L2.7,15.89L4.47,16.36L4,18.12L5.93,18.64L6.55,16.31L8.55,15.18L11,16.62V18.88L9.29,20.59L10.71,22L12,20.71L13.29,22L14.7,20.59L13,18.88V16.62L15.5,15.17L17.5,16.3L18.12,18.63L20,18.12L19.53,16.35L21.3,15.88L20.79,13.95M9.5,10.56L12,9.11L14.5,10.56V13.44L12,14.89L9.5,13.44V10.56Z", qt = "M17 13V7H19V13H17M17 17V15H19V17H17M13 13V5C13 3.3 11.7 2 10 2S7 3.3 7 5V13C4.8 14.7 4.3 17.8 6 20S10.8 22.7 13 21 15.7 16.2 14 14C13.7 13.6 13.4 13.3 13 13M10 4C10.6 4 11 4.4 11 5V8H9V5C9 4.4 9.4 4 10 4Z", bt = "M12,3.25C12,3.25 6,10 6,14C6,17.32 8.69,20 12,20A6,6 0 0,0 18,14C18,10 12,3.25 12,3.25M14.47,9.97L15.53,11.03L9.53,17.03L8.47,15.97M9.75,10A1.25,1.25 0 0,1 11,11.25A1.25,1.25 0 0,1 9.75,12.5A1.25,1.25 0 0,1 8.5,11.25A1.25,1.25 0 0,1 9.75,10M14.25,14.5A1.25,1.25 0 0,1 15.5,15.75A1.25,1.25 0 0,1 14.25,17A1.25,1.25 0 0,1 13,15.75A1.25,1.25 0 0,1 14.25,14.5Z", jt = "M20 7V13H18V7H20M18 17H20V15H18V17M10 3.25C10 3.25 4 10 4 14C4 17.32 6.69 20 10 20S16 17.31 16 14C16 10 10 3.25 10 3.25M7.75 10C8.44 10 9 10.56 9 11.25S8.44 12.5 7.75 12.5 6.5 11.94 6.5 11.25 7.06 10 7.75 10M12.25 17C11.56 17 11 16.44 11 15.75S11.56 14.5 12.25 14.5 13.5 15.06 13.5 15.75 12.94 17 12.25 17M7.53 17.03L6.47 15.97L12.47 9.97L13.53 11.03L7.53 17.03Z", Gt = "M4,10A1,1 0 0,1 3,9A1,1 0 0,1 4,8H12A2,2 0 0,0 14,6A2,2 0 0,0 12,4C11.45,4 10.95,4.22 10.59,4.59C10.2,5 9.56,5 9.17,4.59C8.78,4.2 8.78,3.56 9.17,3.17C9.9,2.45 10.9,2 12,2A4,4 0 0,1 16,6A4,4 0 0,1 12,10H4M19,12A1,1 0 0,0 20,11A1,1 0 0,0 19,10C18.72,10 18.47,10.11 18.29,10.29C17.9,10.68 17.27,10.68 16.88,10.29C16.5,9.9 16.5,9.27 16.88,8.88C17.42,8.34 18.17,8 19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14H5A1,1 0 0,1 4,13A1,1 0 0,1 5,12H19M18,18H4A1,1 0 0,1 3,17A1,1 0 0,1 4,16H18A3,3 0 0,1 21,19A3,3 0 0,1 18,22C17.17,22 16.42,21.66 15.88,21.12C15.5,20.73 15.5,20.1 15.88,19.71C16.27,19.32 16.9,19.32 17.29,19.71C17.47,19.89 17.72,20 18,20A1,1 0 0,0 19,19A1,1 0 0,0 18,18Z";
 const z = globalThis, Q = z.ShadowRoot && (z.ShadyCSS === void 0 || z.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, tt = /* @__PURE__ */ Symbol(), ot = /* @__PURE__ */ new WeakMap();
 let xt = class {
   constructor(t, e, r) {
@@ -18,7 +18,7 @@ let xt = class {
     return this.cssText;
   }
 };
-const qt = (i) => new xt(typeof i == "string" ? i : i + "", void 0, tt), Zt = (i, ...t) => {
+const Wt = (i) => new xt(typeof i == "string" ? i : i + "", void 0, tt), Zt = (i, ...t) => {
   const e = i.length === 1 ? i[0] : t.reduce((r, s, o) => r + ((n) => {
     if (n._$cssResult$ === !0) return n.cssText;
     if (typeof n == "number") return n;
@@ -34,7 +34,7 @@ const qt = (i) => new xt(typeof i == "string" ? i : i + "", void 0, tt), Zt = (i
 }, nt = Q ? (i) => i : (i) => i instanceof CSSStyleSheet ? ((t) => {
   let e = "";
   for (const r of t.cssRules) e += r.cssText;
-  return qt(e);
+  return Wt(e);
 })(i) : i;
 const { is: Xt, defineProperty: Yt, getOwnPropertyDescriptor: Jt, getOwnPropertyNames: Qt, getOwnPropertySymbols: te, getPrototypeOf: ee } = Object, F = globalThis, at = F.trustedTypes, re = at ? at.emptyScript : "", ie = F.reactiveElementPolyfillSupport, T = (i, t) => i, K = { toAttribute(i, t) {
   switch (t) {
@@ -248,8 +248,8 @@ let C = class extends HTMLElement {
   }
 };
 C.elementStyles = [], C.shadowRootOptions = { mode: "open" }, C[T("elementProperties")] = /* @__PURE__ */ new Map(), C[T("finalized")] = /* @__PURE__ */ new Map(), ie?.({ ReactiveElement: C }), (F.reactiveElementVersions ??= []).push("2.1.2");
-const et = globalThis, lt = (i) => i, D = et.trustedTypes, ct = D ? D.createPolicy("lit-html", { createHTML: (i) => i }) : void 0, wt = "$lit$", $ = `lit$${Math.random().toFixed(9).slice(2)}$`, At = "?" + $, se = `<${At}>`, w = document, R = () => w.createComment(""), I = (i) => i === null || typeof i != "object" && typeof i != "function", rt = Array.isArray, oe = (i) => rt(i) || typeof i?.[Symbol.iterator] == "function", W = `[ 	
-\f\r]`, H = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, dt = /-->/g, pt = />/g, x = RegExp(`>|${W}(?:([^\\s"'>=/]+)(${W}*=${W}*(?:[^ 	
+const et = globalThis, lt = (i) => i, D = et.trustedTypes, ct = D ? D.createPolicy("lit-html", { createHTML: (i) => i }) : void 0, wt = "$lit$", $ = `lit$${Math.random().toFixed(9).slice(2)}$`, At = "?" + $, se = `<${At}>`, w = document, R = () => w.createComment(""), I = (i) => i === null || typeof i != "object" && typeof i != "function", rt = Array.isArray, oe = (i) => rt(i) || typeof i?.[Symbol.iterator] == "function", G = `[ 	
+\f\r]`, H = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, dt = /-->/g, pt = />/g, x = RegExp(`>|${G}(?:([^\\s"'>=/]+)(${G}*=${G}*(?:[^ 	
 \f\r"'\`<>=]|("|')|))|$)`, "g"), ut = /'/g, mt = /"/g, Ct = /^(?:script|style|textarea|title)$/i, Et = (i) => (t, ...e) => ({ _$litType$: i, strings: t, values: e }), _ = Et(1), V = Et(2), S = /* @__PURE__ */ Symbol.for("lit-noChange"), p = /* @__PURE__ */ Symbol.for("lit-nothing"), ft = /* @__PURE__ */ new WeakMap(), v = w.createTreeWalker(w, 129);
 function kt(i, t) {
   if (!rt(i) || !i.hasOwnProperty("raw")) throw Error("invalid template strings array");
@@ -281,7 +281,7 @@ class N {
       if (s.nodeType === 1) {
         if (s.hasAttributes()) for (const l of s.getAttributeNames()) if (l.endsWith(wt)) {
           const u = c[n++], m = s.getAttribute(l).split($), g = /([.?@])?(.*)/.exec(u);
-          a.push({ type: 1, index: o, name: g[2], strings: m, ctor: g[1] === "." ? he : g[1] === "?" ? le : g[1] === "@" ? ce : j }), s.removeAttribute(l);
+          a.push({ type: 1, index: o, name: g[2], strings: m, ctor: g[1] === "." ? he : g[1] === "?" ? le : g[1] === "@" ? ce : q }), s.removeAttribute(l);
         } else l.startsWith($) && (a.push({ type: 6, index: o }), s.removeAttribute(l));
         if (Ct.test(s.tagName)) {
           const l = s.textContent.split($), u = l.length - 1;
@@ -397,7 +397,7 @@ class O {
     this._$AM === void 0 && (this._$Cv = t, this._$AP?.(t));
   }
 }
-class j {
+class q {
   get tagName() {
     return this.element.tagName;
   }
@@ -422,7 +422,7 @@ class j {
     t === p ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t ?? "");
   }
 }
-class he extends j {
+class he extends q {
   constructor() {
     super(...arguments), this.type = 3;
   }
@@ -430,7 +430,7 @@ class he extends j {
     this.element[this.name] = t === p ? void 0 : t;
   }
 }
-class le extends j {
+class le extends q {
   constructor() {
     super(...arguments), this.type = 4;
   }
@@ -438,7 +438,7 @@ class le extends j {
     this.element.toggleAttribute(this.name, !!t && t !== p);
   }
 }
-class ce extends j {
+class ce extends q {
   constructor(t, e, r, s, o) {
     super(t, e, r, s, o), this.type = 5;
   }
@@ -700,7 +700,7 @@ function we(i) {
   }, `M ${t[0][0]} ${t[0][1]}`);
 }
 const Ae = /* @__PURE__ */ new Set(["unknown", "unavailable", "none", ""]);
-function q(i, t) {
+function W(i, t) {
   return t ? i?.states[t] : void 0;
 }
 function U(i) {
@@ -800,7 +800,7 @@ const Le = Zt`
   ha-card {
     display: block;
     height: 100%;
-    min-height: 318px;
+    min-height: 0;
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--divider-color, #66717c) 44%, transparent);
     border-radius: var(--ha-card-border-radius, 22px);
@@ -842,7 +842,9 @@ const Le = Zt`
   .card {
     position: relative;
     display: grid;
-    min-height: 318px;
+    min-width: 0;
+    min-height: clamp(240px, calc(100cqw + 64px), 318px);
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr) auto;
     padding: 16px 16px 13px;
   }
@@ -936,16 +938,20 @@ const Le = Zt`
   .dial {
     position: relative;
     display: grid;
-    min-height: 226px;
+    width: min(100%, 254px);
+    min-width: 0;
+    aspect-ratio: 254 / 226;
+    place-self: center;
     place-items: center;
+    container-type: inline-size;
   }
 
   .gauge {
     position: absolute;
     top: 2px;
     left: 50%;
-    width: 254px;
-    height: 205px;
+    width: 100%;
+    height: auto;
     overflow: visible;
     transform: translateX(-50%);
   }
@@ -984,7 +990,7 @@ const Le = Zt`
     position: relative;
     z-index: 1;
     display: flex;
-    margin-top: 35px;
+    margin-top: 14cqw;
     flex-direction: column;
     align-items: center;
   }
@@ -1003,34 +1009,34 @@ const Le = Zt`
     align-items: center;
     justify-content: center;
     color: var(--primary-text-color, #f4f7fb);
-    font-size: clamp(54px, 24cqw, 62px);
+    font-size: clamp(24px, 24cqw, 62px);
     font-weight: 480;
     letter-spacing: -2.6px;
     line-height: 0.98;
   }
 
   .temperature small {
-    margin-top: 4px;
+    margin-top: 1.6cqw;
     color: var(--secondary-text-color, #a8b2bd);
-    font-size: 15px;
+    font-size: clamp(10px, 6cqw, 15px);
     font-weight: 550;
     letter-spacing: -0.2px;
   }
 
   .humidity {
     gap: 5px;
-    margin-top: 9px;
+    margin-top: 3.5cqw;
     color: var(--primary-text-color, #f4f7fb);
   }
 
   .humidity svg {
-    width: 20px;
-    height: 20px;
+    width: clamp(14px, 8cqw, 20px);
+    height: clamp(14px, 8cqw, 20px);
     fill: #58b9ff;
   }
 
   .humidity strong {
-    font-size: 20px;
+    font-size: clamp(14px, 8cqw, 20px);
     font-weight: 580;
     letter-spacing: -0.5px;
   }
@@ -1044,7 +1050,8 @@ const Le = Zt`
 
   .history {
     display: grid;
-    grid-template-columns: minmax(44px, auto) minmax(70px, 1fr) minmax(44px, auto);
+    min-width: 0;
+    grid-template-columns: minmax(44px, auto) minmax(0, 1fr) minmax(44px, auto);
     gap: 8px;
     align-items: end;
     min-height: 50px;
@@ -1163,6 +1170,7 @@ const Le = Zt`
 
   .tooltip-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 9px;
@@ -1221,15 +1229,43 @@ const Le = Zt`
       padding-inline: 13px;
     }
 
-    .status {
-      max-width: 76px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .header {
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
-    .gauge {
-      width: 238px;
+    .room {
+      max-width: 100%;
+    }
+
+    .history {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .sparkline-wrap {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+
+    .range {
+      grid-row: 2;
+    }
+
+    .battery-warning {
+      position: static;
+      justify-self: end;
+      margin-top: 4px;
+    }
+  }
+
+  @container (max-width: 419px) {
+    .chart-tooltip.place-left,
+    .chart-tooltip.place-right {
+      left: 50% !important;
+      width: min(174px, calc(100cqw - 28px));
+      margin-left: 0;
+      transform: translateX(-50%);
     }
   }
 
@@ -1248,12 +1284,8 @@ const Le = Zt`
     }
 
     .dial {
-      min-height: 232px;
-    }
-
-    .gauge {
-      width: 270px;
-      height: 212px;
+      width: min(100%, 270px);
+      aspect-ratio: 270 / 232;
     }
   }
 
@@ -1273,12 +1305,12 @@ function Te(i) {
     case "warm":
       return Bt;
     case "dry":
-      return Wt;
+      return Gt;
     case "humid":
     case "mixed":
-      return Gt;
-    case "unavailable":
       return jt;
+    case "unavailable":
+      return qt;
     default:
       return bt;
   }
@@ -1329,8 +1361,8 @@ const B = class B extends P {
   }
   getGridOptions() {
     return {
-      columns: 3,
-      min_columns: 3,
+      columns: 12,
+      min_columns: 6,
       rows: "auto"
     };
   }
@@ -1433,7 +1465,7 @@ const B = class B extends P {
   render() {
     const t = this._config;
     if (!t) return p;
-    const e = q(this.hass, t.temperature_entity), r = q(this.hass, t.humidity_entity), s = q(this.hass, t.battery_entity), o = U(e), n = U(r), h = U(s), a = Ee(o, n, t), d = ke(o), c = Ce(this.hass, e), l = t.title || e?.attributes.friendly_name?.replace(/ temperature$/i, "") || "Room climate", u = this._history.length > 1 ? this._history : Re(o, n, t.history_hours ?? 24), m = u.map((f) => f.temperature).filter((f) => f !== void 0), g = m.length ? Math.min(...m) : o, Ut = m.length ? Math.max(...m) : o, st = u.map((f) => f.temperature), Rt = we(st), A = this._activeChartIndex === void 0 ? void 0 : Math.min(u.length - 1, Math.max(0, this._activeChartIndex)), L = A === void 0 ? void 0 : u[A], G = A === void 0 ? void 0 : ve(st, A), b = A === void 0 ? void 0 : xe(A, u.length), It = b !== void 0 && b > 50 ? "place-left" : "place-right", Nt = `left: ${b ?? 0}%`, Ot = L ? new Intl.DateTimeFormat(this._locale, {
+    const e = W(this.hass, t.temperature_entity), r = W(this.hass, t.humidity_entity), s = W(this.hass, t.battery_entity), o = U(e), n = U(r), h = U(s), a = Ee(o, n, t), d = ke(o), c = Ce(this.hass, e), l = t.title || e?.attributes.friendly_name?.replace(/ temperature$/i, "") || "Room climate", u = this._history.length > 1 ? this._history : Re(o, n, t.history_hours ?? 24), m = u.map((f) => f.temperature).filter((f) => f !== void 0), g = m.length ? Math.min(...m) : o, Ut = m.length ? Math.max(...m) : o, st = u.map((f) => f.temperature), Rt = we(st), A = this._activeChartIndex === void 0 ? void 0 : Math.min(u.length - 1, Math.max(0, this._activeChartIndex)), L = A === void 0 ? void 0 : u[A], j = A === void 0 ? void 0 : ve(st, A), b = A === void 0 ? void 0 : xe(A, u.length), It = b !== void 0 && b > 50 ? "place-left" : "place-right", Nt = `left: ${b ?? 0}%`, Ot = L ? new Intl.DateTimeFormat(this._locale, {
       month: "short",
       day: "numeric",
       hour: "numeric",
@@ -1545,11 +1577,11 @@ const B = class B extends P {
                                       y2=${k}
                                     ></line>
                                   ` : p}
-                              ${G ? V`
+                              ${j ? V`
                                     <circle
                                       class="inspection-dot"
-                                      cx=${G[0]}
-                                      cy=${G[1]}
+                                      cx=${j[0]}
+                                      cy=${j[1]}
                                       r="2.8"
                                     ></circle>
                                   ` : p}
