@@ -7,6 +7,26 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-12
+
+### Fixed
+
+- Scale the gauge and readings to the available card width instead of clipping
+  them in narrow layouts. Compact cards place the history graph above the
+  minimum and maximum readings and keep inspection tooltips inside the card.
+- Allow long room names, comfort states, and low-battery warnings to fit compact
+  layouts.
+
+### Changed
+
+- Default Sections cards to 12 columns, with a supported minimum of 6 columns
+  and automatic height.
+
+### Thanks
+
+- Thanks to [@bushvin](https://github.com/bushvin) for reporting the narrow-layout
+  clipping in [#5](https://github.com/halfbuilthq/temperature-humidity-card/issues/5).
+
 ## [0.1.1] - 2026-09-02
 
 ### Added

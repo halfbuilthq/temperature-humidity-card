@@ -1,6 +1,6 @@
 {
   "name": "temperature-humidity-card",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A sensor-only temperature and humidity card for Home Assistant.",
   "keywords": [
     "home-assistant",
