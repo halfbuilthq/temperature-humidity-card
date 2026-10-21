@@ -8,6 +8,7 @@ export const DEFAULT_CONFIG: Partial<TemperatureHumidityCardConfig> = {
   icon: "mdi:home-thermometer-outline",
   history_hours: 24,
   show_history: true,
+  color_mode: "state",
   cold_threshold: 16,
   warm_threshold: 26,
   dry_threshold: 35,
@@ -19,7 +20,7 @@ const LABEL_STATES = ["cold", "warm", "dry", "humid", "unavailable"] as const;
 const COLOR_STATES = ["comfortable", "cold", "warm", "dry", "humid", "mixed", "unavailable"] as const;
 
 const STRING_FIELDS = [
-  "title", "icon", "temperature_entity", "humidity_entity", "battery_entity",
+  "title", "icon", "temperature_entity", "humidity_entity", "battery_entity", "color_mode",
   ...LABEL_STATES.map((state) => `${state}_label` as const),
   ...COLOR_STATES.map((state) => `${state}_color` as const)
 ] as const;
@@ -41,6 +42,7 @@ const FIELD_LABELS: Record<string, string> = {
   battery_entity: "Sensor battery",
   history_hours: "Trend period",
   show_history: "Show trend and daily range",
+  color_mode: "Colour mode",
   cold_threshold: "Cold below",
   warm_threshold: "Warm above",
   dry_threshold: "Dry below",
@@ -56,6 +58,7 @@ const FIELD_HELPERS: Record<string, string> = {
   battery_entity: "Optional battery sensor. It is shown only when low.",
   history_hours: "Number of hours used for the sparkline and minimum/maximum.",
   show_history: "Hide this for an extra-compact card.",
+  color_mode: "Automatic gradient blends Cold, Comfortable, Warm, Dry and Humid colours as readings change. Fixed colours use one colour per state.",
   low_battery_threshold: "Healthy battery values stay hidden."
 };
 
@@ -175,15 +178,29 @@ export function getConfigForm() {
         name: "",
         title: "Comfort colours",
         flatten: true,
-        schema: COLOR_STATES.map((state) => ({
-          name: `${state}_color`,
-          selector: {
-            text: {
-              pattern: "^\\s*(?:#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?\\s*$",
-              validation_message: "Enter a complete hex colour, for example #55d5df, or clear this field."
+        schema: [
+          {
+            name: "color_mode",
+            selector: {
+              select: {
+                mode: "dropdown",
+                options: [
+                  { value: "state", label: "Fixed state colours" },
+                  { value: "gradient", label: "Automatic gradient" }
+                ]
+              }
             }
-          }
-        }))
+          },
+          ...COLOR_STATES.map((state) => ({
+            name: `${state}_color`,
+            selector: {
+              text: {
+                pattern: "^\\s*(?:#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?\\s*$",
+                validation_message: "Enter a complete hex colour, for example #55d5df, or clear this field."
+              }
+            }
+          }))
+        ]
       }
     ],
     computeLabel: (schema: { name?: string }) =>
@@ -216,6 +233,9 @@ export function validateEditorConfig(config: TemperatureHumidityCardConfig): voi
 
 export function validateConfig(config: TemperatureHumidityCardConfig): void {
   validateEditorConfig(config);
+  if (config.color_mode && config.color_mode !== "state" && config.color_mode !== "gradient") {
+    throw new Error("Colour mode must be state or gradient.");
+  }
   for (const [field, label] of [
     ["temperature_entity", "Temperature"],
     ["humidity_entity", "Humidity"]

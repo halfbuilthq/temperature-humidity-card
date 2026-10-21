@@ -1,6 +1,6 @@
 {
   "name": "temperature-humidity-card",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A customisable temperature and optional humidity comfort card for Home Assistant, available in HACS.",
   "keywords": [
     "home-assistant",

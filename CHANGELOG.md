@@ -7,6 +7,18 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-21
+
+### Added
+
+- Optional `color_mode: gradient` and visual-editor control for continuous
+  temperature and humidity colour blending. Uses configured thresholds and
+  custom colour anchors, blends combined conditions, and supports temperature-only
+  cards while preserving unavailable warning colours. Fixed colours remain the default.
+- Interactive gradient demo with temperature and humidity sliders.
+- Thanks to [@Semir333](https://github.com/Semir333) for suggesting gradients in #6.
+  Implements [#8](https://github.com/halfbuilthq/temperature-humidity-card/issues/8).
+
 ## [0.2.1] - 2026-10-21
 
 ### Fixed

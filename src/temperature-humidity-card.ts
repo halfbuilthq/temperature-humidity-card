@@ -24,6 +24,7 @@ import {
   sparklinePoint
 } from "./chart";
 import { fetchRoomHistory } from "./history";
+import { comfortAccent } from "./colors";
 import { cardStyles } from "./styles";
 import type {
   ComfortKey,
@@ -293,7 +294,7 @@ export class TemperatureHumidityCard extends LitElement {
     const humidity = numericState(humidityEntity);
     const battery = numericState(batteryEntity);
     const status = comfortStatus(temperature, humidity, config);
-    const accent = config[`${status.key}_color`]?.trim() || undefined;
+    const accent = comfortAccent(temperature, humidity, status.key, config);
     const progress = gaugeProgress(temperature);
     const unit = temperatureUnit(this.hass, temperatureEntity);
     const title =

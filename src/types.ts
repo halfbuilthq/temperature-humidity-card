@@ -41,6 +41,7 @@ export interface TemperatureHumidityCardConfig {
   icon?: string;
   history_hours?: number;
   show_history?: boolean;
+  color_mode?: "state" | "gradient";
   cold_threshold?: number;
   warm_threshold?: number;
   dry_threshold?: number;

@@ -9,6 +9,7 @@ air-conditioning controls.
 ## Highlights
 
 - Works with ordinary temperature sensors, with optional humidity.
+- Optional automatic gradients blend temperature and humidity comfort colours.
 - Supports custom warning text and comfort-state colours.
 - Shows Cold, Warm, Dry, Humid, mixed, and unavailable exceptions.
 - Displays the 24-hour minimum, maximum, and temperature trend.

@@ -188,7 +188,7 @@ it("shows colour format hints only on colour fields", () => {
   const form = getConfigForm();
   const colours = form.schema.find((section) => section.title === "Comfort colours")!;
   const labels = form.schema.find((section) => section.title === "Warning text")!;
-  for (const field of colours.schema) {
+  for (const field of colours.schema.filter((field) => field.name.endsWith("_color"))) {
     const text = (field as unknown as { selector: { text: { pattern: string; validation_message: string } } }).selector.text;
     const pattern = new RegExp(text.pattern);
     for (const valid of ["", "  ", "#AbC", " #55d5df "]) expect(pattern.test(valid)).toBe(true);
@@ -196,4 +196,19 @@ it("shows colour format hints only on colour fields", () => {
     expect(text.validation_message).toContain("complete hex colour");
   }
   for (const field of labels.schema) expect(field).not.toHaveProperty("selector.text.pattern");
+});
+
+
+it("offers optional gradient mode without disabling the editor on intermediate values", () => {
+  expect(normalizeConfig(minimal).color_mode).toBe("state");
+  const form = getConfigForm();
+  const section = form.schema.find((section) => section.title === "Comfort colours")!;
+  const mode = section.schema.find((field) => field.name === "color_mode");
+  expect(mode).toMatchObject({ selector: { select: { options: [
+    { value: "state" }, { value: "gradient" }
+  ] } } });
+  expect(() => form.assertConfig({ ...minimal, color_mode: "" as "state" })).not.toThrow();
+  expect(() => validateConfig({ ...minimal, color_mode: "gradient" })).not.toThrow();
+  expect(() => validateConfig({ ...minimal, color_mode: "other" as "state" })).toThrow("Colour mode");
+  expect(() => form.assertConfig({ ...minimal, color_mode: {} as "state" })).toThrow();
 });

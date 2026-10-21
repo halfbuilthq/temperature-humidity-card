@@ -16,6 +16,7 @@ in the HACS catalogue.
 - Temperature with optional humidity from ordinary sensor entities
 - Clear Cold, Warm, Dry, Humid, mixed and unavailable states
 - Configurable comfort thresholds, warning text and state colours
+- Optional automatic colour gradients based on temperature and humidity
 - Temperature history with minimum, maximum and sparkline
 - Mouse, touch and keyboard chart inspection with temperature and humidity tooltips
 - Optional sensor battery warning that stays hidden while healthy
@@ -107,6 +108,46 @@ being forced into YAML mode. Missing required sensors, invalid trend periods or
 inverted thresholds may show a preview error until corrected; the form stays
 editable.
 
+### Automatic comfort gradient
+
+Choose **Comfort colours → Colour mode → Automatic gradient** in the visual
+editor, or add `color_mode: gradient`:
+
+```yaml
+type: custom:temperature-humidity-card
+temperature_entity: sensor.room_temperature
+humidity_entity: sensor.room_humidity
+color_mode: gradient
+cold_color: "#60a9ff"
+comfortable_color: "#55d5df"
+warm_color: "#f7a55f"
+dry_color: "#aab9c7"
+humid_color: "#4fb9ff"
+```
+
+The accent colour follows the readings continuously. Temperature moves from
+Cold at `cold_threshold`, through Comfortable at the range midpoint, to Warm
+at `warm_threshold`. Humidity follows Dry → Comfortable → Humid in the same way.
+Values beyond a threshold stay at that endpoint colour. Thresholds use the
+sensor's units; configure temperature thresholds accordingly when using °F.
+
+When both sensors are configured, their distances from the range midpoints
+control the blend. Near both midpoints the Comfortable colour dominates. As
+the readings move away, their Cold/Warm and Dry/Humid colours contribute in
+proportion to the distance, capped at each endpoint. Combined distance above
+one uses a weighted blend of the endpoint colours. For example, fully warm and
+fully humid readings contribute equal parts Warm and Humid. Colours blend in
+RGB space. The resulting accent applies to the gauge, status, trend and tint.
+
+Temperature-only cards use just the Cold → Comfortable → Warm scale. Missing
+configured readings retain the Unavailable warning and theme/custom error
+colour. Labels and comfort-state thresholds still work as before.
+
+`mixed_color` applies in fixed mode; gradient mode calculates the blend instead.
+Return to `color_mode: state` (the default) for the existing fixed state colours.
+Partial colour edits keep the editor available and use the default anchor colour
+until the hex value is complete.
+
 ### Entity requirements
 
 - `temperature_entity`: a sensor with a numeric temperature state and a
@@ -161,7 +202,8 @@ Run all tests and build the production bundle:
 npm run check
 ```
 
-Open `/demo/customization.html` on the development server to preview the new options.
+Open `/demo/customization.html` for customisation examples or `/demo/gradient.html`
+for an interactive gradient preview with temperature and humidity sliders.
 
 The bundle is emitted to `dist/temperature-humidity-card.js`.
 
