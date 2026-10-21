@@ -18,6 +18,17 @@ export const DEFAULT_CONFIG: Partial<TemperatureHumidityCardConfig> = {
 const LABEL_STATES = ["cold", "warm", "dry", "humid", "unavailable"] as const;
 const COLOR_STATES = ["comfortable", "cold", "warm", "dry", "humid", "mixed", "unavailable"] as const;
 
+const STRING_FIELDS = [
+  "title", "icon", "temperature_entity", "humidity_entity", "battery_entity",
+  ...LABEL_STATES.map((state) => `${state}_label` as const),
+  ...COLOR_STATES.map((state) => `${state}_color` as const)
+] as const;
+const NUMBER_FIELDS = [
+  "history_hours", "cold_threshold", "warm_threshold", "dry_threshold",
+  "humid_threshold", "low_battery_threshold"
+] as const;
+const HEX_COLOR_PATTERN = /^#(?:[\da-f]{3}|[\da-f]{6})$/i;
+
 function stateName(state: string): string {
   return state.charAt(0).toUpperCase() + state.slice(1);
 }
@@ -54,7 +65,7 @@ for (const state of LABEL_STATES) {
 }
 for (const state of COLOR_STATES) {
   FIELD_LABELS[`${state}_color`] = `${stateName(state)} colour`;
-  FIELD_HELPERS[`${state}_color`] = "Optional hex colour, for example #55d5df. Leave blank for the default.";
+  FIELD_HELPERS[`${state}_color`] = "Optional hex colour, for example #55d5df. Blank or incomplete values use the default colour.";
 }
 
 export function getConfigForm() {
@@ -166,7 +177,12 @@ export function getConfigForm() {
         flatten: true,
         schema: COLOR_STATES.map((state) => ({
           name: `${state}_color`,
-          selector: { text: {} }
+          selector: {
+            text: {
+              pattern: "^\\s*(?:#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?\\s*$",
+              validation_message: "Enter a complete hex colour, for example #55d5df, or clear this field."
+            }
+          }
         }))
       }
     ],
@@ -174,11 +190,32 @@ export function getConfigForm() {
       schema.name ? FIELD_LABELS[schema.name] : undefined,
     computeHelper: (schema: { name?: string }) =>
       schema.name ? FIELD_HELPERS[schema.name] : undefined,
-    assertConfig: (config: TemperatureHumidityCardConfig) => validateConfig(config)
+    assertConfig: (config: TemperatureHumidityCardConfig) => validateEditorConfig(config)
   };
 }
 
+// assertConfig is called on every keystroke. Only unsupported data shapes
+// should disable the visual editor; missing values and range errors are editable.
+export function validateEditorConfig(config: TemperatureHumidityCardConfig): void {
+  for (const field of STRING_FIELDS) {
+    const value = config[field];
+    if (value !== undefined && typeof value !== "string") {
+      throw new Error(`${FIELD_LABELS[field]} must be a string.`);
+    }
+  }
+  for (const field of NUMBER_FIELDS) {
+    const value = config[field];
+    if (value !== undefined && (typeof value !== "number" || !Number.isFinite(value))) {
+      throw new Error(`${FIELD_LABELS[field]} must be a finite number.`);
+    }
+  }
+  if (config.show_history !== undefined && typeof config.show_history !== "boolean") {
+    throw new Error("Show trend and daily range must be a boolean.");
+  }
+}
+
 export function validateConfig(config: TemperatureHumidityCardConfig): void {
+  validateEditorConfig(config);
   for (const [field, label] of [
     ["temperature_entity", "Temperature"],
     ["humidity_entity", "Humidity"]
@@ -187,20 +224,6 @@ export function validateConfig(config: TemperatureHumidityCardConfig): void {
     if (field === "humidity_entity" && (value === undefined || value === "")) continue;
     if (!value || typeof value !== "string") throw new Error(`${label} is required.`);
     if (!value.startsWith("sensor.")) throw new Error(`${label} must be a sensor entity.`);
-  }
-
-  for (const state of LABEL_STATES) {
-    const value = config[`${state}_label`];
-    if (value !== undefined && typeof value !== "string") {
-      throw new Error(`${stateName(state)} text must be a string.`);
-    }
-  }
-  for (const state of COLOR_STATES) {
-    const value = config[`${state}_color`];
-    if (value !== undefined && (typeof value !== "string" ||
-      (value.trim() !== "" && !/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value.trim())))) {
-      throw new Error(`${stateName(state)} colour must be a hex colour such as #55d5df.`);
-    }
   }
 
   const historyHours = config.history_hours ?? 24;
@@ -218,11 +241,19 @@ export function validateConfig(config: TemperatureHumidityCardConfig): void {
 export function normalizeConfig(
   config: TemperatureHumidityCardConfig
 ): TemperatureHumidityCardConfig {
-  return {
+  const normalized = {
     ...DEFAULT_CONFIG,
     ...config,
     type: config.type || "custom:temperature-humidity-card"
   } as TemperatureHumidityCardConfig;
+  // Preserve raw editor input in the caller's config, but never apply partial
+  // hex values or arbitrary CSS to the card's custom properties.
+  for (const state of COLOR_STATES) {
+    const field = `${state}_color` as const;
+    const value = config[field]?.trim();
+    normalized[field] = value && HEX_COLOR_PATTERN.test(value) ? value : undefined;
+  }
+  return normalized;
 }
 
 export function getStubConfig(hass?: HomeAssistant): TemperatureHumidityCardConfig {

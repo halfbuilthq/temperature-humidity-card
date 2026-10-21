@@ -5,7 +5,7 @@ import {
   normalizeConfig,
   validateConfig
 } from "../src/config";
-import type { HomeAssistant } from "../src/types";
+import type { HomeAssistant, TemperatureHumidityCardConfig } from "../src/types";
 
 describe("temperature humidity card config", () => {
   it("requires a temperature sensor entity", () => {
@@ -116,8 +116,84 @@ it("validates optional text and hex colours without requiring overrides", () => 
   expect(() => validateConfig({ ...minimal, cold_label: "", cold_color: " " }))
     .not.toThrow();
   expect(() => validateConfig({ ...minimal, mixed_color: "#123456" })).not.toThrow();
-  expect(() => validateConfig({ ...minimal, cold_color: "red; display:none" }))
-    .toThrow("Cold colour must be a hex colour");
+  expect(normalizeConfig({ ...minimal, cold_color: "red; display:none" }).cold_color)
+    .toBeUndefined();
   expect(() => validateConfig({ ...minimal, cold_label: 7 as unknown as string }))
     .toThrow("Cold text must be a string");
+});
+
+const colorFields = [
+  "comfortable_color", "cold_color", "warm_color", "dry_color",
+  "humid_color", "mixed_color", "unavailable_color"
+] as const;
+
+it.each(colorFields)("keeps %s editable through typing and deletion", (field) => {
+  const form = getConfigForm();
+  const full = "#55d5df";
+  const sequence = Array.from({ length: full.length + 1 }, (_, length) => full.slice(0, length));
+  for (const value of [...sequence, ...[...sequence].reverse(), "#nothex", "red; display:none"]) {
+    const config: TemperatureHumidityCardConfig = { ...minimal, [field]: value };
+    expect(() => form.assertConfig(config)).not.toThrow();
+    expect(() => validateConfig(config)).not.toThrow();
+    const expected = value === "#55d" || value === full ? value : undefined;
+    expect(normalizeConfig(config)[field]).toBe(expected);
+    expect(config[field]).toBe(value);
+  }
+  expect(normalizeConfig({ ...minimal, [field]: " #AbC " })[field]).toBe("#AbC");
+  expect(() => form.assertConfig({ ...minimal, [field]: {} as unknown as string })).toThrow();
+});
+
+it("keeps entity selectors editable while cleared or partially selected", () => {
+  const form = getConfigForm();
+  for (const field of ["temperature_entity", "humidity_entity", "battery_entity"]) {
+    for (const value of [undefined, "", "s", "sensor.", "sensor.room_temperature"]) {
+      expect(() => form.assertConfig({ ...minimal, [field]: value })).not.toThrow();
+    }
+  }
+  expect(() => validateConfig({ ...minimal, temperature_entity: "" })).toThrow("Temperature is required");
+});
+
+it("keeps number fields editable through clearing and temporary range errors", () => {
+  const form = getConfigForm();
+  for (const field of ["history_hours", "cold_threshold", "warm_threshold", "dry_threshold", "humid_threshold", "low_battery_threshold"]) {
+    // HA's number selector emits undefined for empty or incomplete numeric input.
+    for (const value of [undefined, -1, 0, 1, 1.5, 200]) {
+      expect(() => form.assertConfig({ ...minimal, [field]: value })).not.toThrow();
+    }
+    for (const invalid of ["oops", NaN, Infinity, -Infinity]) {
+      expect(() => form.assertConfig({ ...minimal, [field]: invalid })).toThrow();
+      expect(() => validateConfig({ ...minimal, [field]: invalid })).toThrow();
+    }
+  }
+  expect(() => validateConfig({ ...minimal, history_hours: 0 })).toThrow("Trend period");
+  expect(() => validateConfig({ ...minimal, cold_threshold: 30, warm_threshold: 26 })).toThrow("Cold threshold");
+  expect(() => validateConfig({ ...minimal, dry_threshold: 70, humid_threshold: 65 })).toThrow("Dry threshold");
+});
+
+it("keeps free text and toggles editable but rejects unsupported data shapes", () => {
+  const form = getConfigForm();
+  for (const field of ["title", "icon", "cold_label", "warm_label", "dry_label", "humid_label", "unavailable_label"]) {
+    for (const value of [undefined, "", "m", "mdi:", "Cold"]) {
+      expect(() => form.assertConfig({ ...minimal, [field]: value })).not.toThrow();
+    }
+    expect(() => form.assertConfig({ ...minimal, [field]: ["unsupported"] })).toThrow();
+  }
+  for (const value of [undefined, false, true]) {
+    expect(() => form.assertConfig({ ...minimal, show_history: value })).not.toThrow();
+  }
+  expect(() => form.assertConfig({ ...minimal, show_history: "true" as unknown as boolean })).toThrow();
+});
+
+it("shows colour format hints only on colour fields", () => {
+  const form = getConfigForm();
+  const colours = form.schema.find((section) => section.title === "Comfort colours")!;
+  const labels = form.schema.find((section) => section.title === "Warning text")!;
+  for (const field of colours.schema) {
+    const text = (field as unknown as { selector: { text: { pattern: string; validation_message: string } } }).selector.text;
+    const pattern = new RegExp(text.pattern);
+    for (const valid of ["", "  ", "#AbC", " #55d5df "]) expect(pattern.test(valid)).toBe(true);
+    for (const invalid of ["#", "#55", "#55d5", "#invalid"]) expect(pattern.test(invalid)).toBe(false);
+    expect(text.validation_message).toContain("complete hex colour");
+  }
+  for (const field of labels.schema) expect(field).not.toHaveProperty("selector.text.pattern");
 });

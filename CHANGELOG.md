@@ -7,6 +7,17 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-21
+
+### Fixed
+
+- Keep the visual editor available while typing or deleting colour overrides,
+  clearing entity selections, or adjusting numeric ranges. Partial/invalid hex
+  colours use the default preview colour with an inline format hint. Runtime
+  configuration checks remain separate from visual-editor compatibility checks.
+  Fixes [#7](https://github.com/halfbuilthq/temperature-humidity-card/issues/7),
+  reported by [@Semir333](https://github.com/Semir333) in #6.
+
 ## [0.2.0] - 2026-10-21
 
 ### Added

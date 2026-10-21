@@ -98,6 +98,14 @@ Colours accept quoted `#RGB` or `#RRGGBB` hex values and apply to the active
 state's accent (gauge, status, trend and tint). `mixed_color` applies whenever
 both temperature and humidity are outside their comfort ranges. Without an
 override, existing colours and Home Assistant theme fallbacks are preserved.
+While you type or delete a colour, the visual editor keeps your input and the
+preview uses the default until the value is a complete hex colour. Invalid
+colour text also falls back to the default and shows a format hint in the editor.
+
+You can clear and re-enter sensor selections, text and numeric settings without
+being forced into YAML mode. Missing required sensors, invalid trend periods or
+inverted thresholds may show a preview error until corrected; the form stays
+editable.
 
 ### Entity requirements
 
