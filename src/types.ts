@@ -35,7 +35,7 @@ export interface HomeAssistant {
 export interface TemperatureHumidityCardConfig {
   type: string;
   temperature_entity: string;
-  humidity_entity: string;
+  humidity_entity?: string;
   battery_entity?: string;
   title?: string;
   icon?: string;
@@ -46,6 +46,18 @@ export interface TemperatureHumidityCardConfig {
   dry_threshold?: number;
   humid_threshold?: number;
   low_battery_threshold?: number;
+  cold_label?: string;
+  warm_label?: string;
+  dry_label?: string;
+  humid_label?: string;
+  unavailable_label?: string;
+  comfortable_color?: string;
+  cold_color?: string;
+  warm_color?: string;
+  dry_color?: string;
+  humid_color?: string;
+  mixed_color?: string;
+  unavailable_color?: string;
 }
 
 export interface HistoryPoint {

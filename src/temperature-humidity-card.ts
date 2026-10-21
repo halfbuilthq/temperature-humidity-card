@@ -8,6 +8,7 @@ import {
   mdiWeatherWindy
 } from "@mdi/js";
 import { LitElement, html, nothing, svg, type PropertyValues } from "lit";
+import { styleMap } from "lit/directives/style-map.js";
 import {
   getConfigForm,
   getStubConfig,
@@ -284,12 +285,15 @@ export class TemperatureHumidityCard extends LitElement {
     if (!config) return nothing;
 
     const temperatureEntity = entity(this.hass, config.temperature_entity);
+    const hasHumidity = Boolean(config.humidity_entity);
+    const metricDescription = hasHumidity ? "temperature and humidity" : "temperature";
     const humidityEntity = entity(this.hass, config.humidity_entity);
     const batteryEntity = entity(this.hass, config.battery_entity);
     const temperature = numericState(temperatureEntity);
     const humidity = numericState(humidityEntity);
     const battery = numericState(batteryEntity);
     const status = comfortStatus(temperature, humidity, config);
+    const accent = config[`${status.key}_color`]?.trim() || undefined;
     const progress = gaugeProgress(temperature);
     const unit = temperatureUnit(this.hass, temperatureEntity);
     const title =
@@ -338,8 +342,16 @@ export class TemperatureHumidityCard extends LitElement {
     const showLowBattery = lowBattery(battery, config.low_battery_threshold ?? 25);
 
     return html`
-      <ha-card class=${status.key}>
-        <article class="card" aria-label=${`${title} temperature and humidity`}>
+      <ha-card class=${status.key} style=${styleMap({
+        "--comfort-accent": accent,
+        "--comfort-accent-soft": accent
+          ? "color-mix(in srgb, var(--comfort-accent) 16%, transparent)"
+          : undefined,
+        "--comfort-surface": accent
+          ? "color-mix(in srgb, var(--ha-card-background, var(--card-background-color, #141a21)) 94%, var(--comfort-accent) 6%)"
+          : undefined
+      })}>
+        <article class="card" aria-label=${`${title} ${metricDescription}`}>
           <header class="header">
             <button
               class="room"
@@ -380,7 +392,7 @@ export class TemperatureHumidityCard extends LitElement {
 
           <section class="dial">
             ${this._renderGauge(progress)}
-            <div class="metrics">
+            <div class="metrics ${hasHumidity ? "" : "temperature-only"}">
               <button
                 class="temperature"
                 type="button"
@@ -389,18 +401,22 @@ export class TemperatureHumidityCard extends LitElement {
               >
                 ${formatNumber(temperature, this._locale)}<small>${unit}</small>
               </button>
-              <button
-                class="humidity"
-                type="button"
-                @click=${() => this._openMoreInfo(config.humidity_entity)}
-                aria-label=${`Humidity ${formatNumber(humidity, this._locale, 0)} percent`}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d=${mdiWaterPercent}></path>
-                </svg>
-                <strong>${formatNumber(humidity, this._locale, 0)}%</strong>
-              </button>
-              <span class="humidity-label">Humidity</span>
+              ${hasHumidity
+                ? html`
+                    <button
+                      class="humidity"
+                      type="button"
+                      @click=${() => this._openMoreInfo(config.humidity_entity)}
+                      aria-label=${`Humidity ${formatNumber(humidity, this._locale, 0)} percent`}
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d=${mdiWaterPercent}></path>
+                      </svg>
+                      <strong>${formatNumber(humidity, this._locale, 0)}%</strong>
+                    </button>
+                    <span class="humidity-label">Humidity</span>
+                  `
+                : nothing}
             </div>
           </section>
 
@@ -421,7 +437,7 @@ export class TemperatureHumidityCard extends LitElement {
                             class="sparkline-wrap"
                             role="group"
                             tabindex="0"
-                            aria-label=${`Inspect ${config.history_hours ?? 24} hour temperature and humidity history. Use the left and right arrow keys to move through readings.`}
+                            aria-label=${`Inspect ${config.history_hours ?? 24} hour ${metricDescription} history. Use the left and right arrow keys to move through readings.`}
                             @pointerdown=${(event: PointerEvent) =>
                               this._inspectChart(event, history.length)}
                             @pointermove=${(event: PointerEvent) =>
@@ -486,16 +502,20 @@ export class TemperatureHumidityCard extends LitElement {
                                         )}${unit}</strong
                                       >
                                     </div>
-                                    <div class="tooltip-item humidity-series">
-                                      <span><i></i>Humidity</span>
-                                      <strong
-                                        >${formatNumber(
-                                          activePoint.humidity,
-                                          this._locale,
-                                          0
-                                        )}%</strong
-                                      >
-                                    </div>
+                                    ${hasHumidity
+                                      ? html`
+                                          <div class="tooltip-item humidity-series">
+                                            <span><i></i>Humidity</span>
+                                            <strong
+                                              >${formatNumber(
+                                                activePoint.humidity,
+                                                this._locale,
+                                                0
+                                              )}%</strong
+                                            >
+                                          </div>
+                                        `
+                                      : nothing}
                                   </div>
                                 `
                               : nothing}

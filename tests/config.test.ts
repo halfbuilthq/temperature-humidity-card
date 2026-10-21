@@ -8,7 +8,7 @@ import {
 import type { HomeAssistant } from "../src/types";
 
 describe("temperature humidity card config", () => {
-  it("requires temperature and humidity sensor entities", () => {
+  it("requires a temperature sensor entity", () => {
     expect(() =>
       validateConfig({
         type: "custom:temperature-humidity-card",
@@ -82,7 +82,12 @@ describe("temperature humidity card config", () => {
 
   it("exposes the native Home Assistant configuration schema", () => {
     const form = getConfigForm();
-    expect(form.schema).toHaveLength(4);
+    const fields = JSON.stringify(form.schema);
+    expect(fields).toContain('"name":"cold_label"');
+    expect(fields).toContain('"name":"mixed_color"');
+    const sensorGrid = form.schema[1];
+    expect(sensorGrid.schema.find((field) => field.name === "humidity_entity"))
+      .not.toHaveProperty("required", true);
     expect(() =>
       form.assertConfig({
         type: "custom:temperature-humidity-card",
@@ -91,4 +96,28 @@ describe("temperature humidity card config", () => {
       })
     ).not.toThrow();
   });
+});
+
+const minimal = {
+  type: "custom:temperature-humidity-card",
+  temperature_entity: "sensor.room_temperature"
+};
+
+it("accepts omitted or cleared humidity but rejects a configured non-sensor", () => {
+  expect(() => validateConfig(minimal)).not.toThrow();
+  expect(() => validateConfig({ ...minimal, humidity_entity: "" })).not.toThrow();
+  expect(() => validateConfig({ ...minimal, humidity_entity: "climate.room" }))
+    .toThrow("Humidity must be a sensor entity");
+});
+
+it("validates optional text and hex colours without requiring overrides", () => {
+  expect(() => validateConfig({ ...minimal, cold_label: "Kalt", cold_color: " #AbC " }))
+    .not.toThrow();
+  expect(() => validateConfig({ ...minimal, cold_label: "", cold_color: " " }))
+    .not.toThrow();
+  expect(() => validateConfig({ ...minimal, mixed_color: "#123456" })).not.toThrow();
+  expect(() => validateConfig({ ...minimal, cold_color: "red; display:none" }))
+    .toThrow("Cold colour must be a hex colour");
+  expect(() => validateConfig({ ...minimal, cold_label: 7 as unknown as string }))
+    .toThrow("Cold text must be a string");
 });

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { fetchRoomHistory } from "../src/history";
 import type { HassEntity, HomeAssistant } from "../src/types";
 
@@ -45,4 +45,19 @@ describe("room sensor history", () => {
     expect(points[12].humidity).toBeCloseTo(50);
     expect(points.at(-1)).toMatchObject({ temperature: 22, humidity: 60 });
   });
+});
+
+it.each([undefined, ""])("requests only temperature history with humidity %s", async (humidity) => {
+  const callApi = vi.fn().mockResolvedValue([[{
+    entity_id: "sensor.room_temperature", state: "21", attributes: {},
+    last_changed: "2026-08-09T00:00:00.000Z"
+  }]]);
+  const points = await fetchRoomHistory(
+    { states: {}, callApi }, "sensor.room_temperature", humidity, 24,
+    new Date("2026-08-10T00:00:00.000Z")
+  );
+  const url = new URL(callApi.mock.calls[0][1], "http://localhost/");
+  expect(url.searchParams.get("filter_entity_id")).toBe("sensor.room_temperature");
+  expect(points).toHaveLength(25);
+  expect(points.every((point) => point.temperature === 21 && point.humidity === undefined)).toBe(true);
 });

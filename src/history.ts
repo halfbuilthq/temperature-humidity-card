@@ -47,13 +47,13 @@ function valueAt(series: HassEntity[], timestamp: number): number | undefined {
 export async function fetchRoomHistory(
   hass: HomeAssistant,
   temperatureEntityId: string,
-  humidityEntityId: string,
+  humidityEntityId: string | undefined,
   hours: number,
   now = new Date()
 ): Promise<HistoryPoint[]> {
   const safeHours = Math.min(168, Math.max(1, hours));
   const start = new Date(now.getTime() - safeHours * 60 * 60 * 1000);
-  const entityIds = `${temperatureEntityId},${humidityEntityId}`;
+  const entityIds = [temperatureEntityId, humidityEntityId].filter(Boolean).join(",");
   const path =
     `history/period/${encodeURIComponent(start.toISOString())}` +
     `?end_time=${encodeURIComponent(now.toISOString())}` +
@@ -62,7 +62,7 @@ export async function fetchRoomHistory(
 
   const response = await hass.callApi<HistoryResponse>("GET", path);
   const temperatures = seriesByEntity(response, temperatureEntityId);
-  const humidities = seriesByEntity(response, humidityEntityId);
+  const humidities = humidityEntityId ? seriesByEntity(response, humidityEntityId) : [];
 
   return Array.from({ length: BUCKET_COUNT }, (_, index) => {
     const timestamp =

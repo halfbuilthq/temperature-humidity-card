@@ -15,6 +15,13 @@ export const DEFAULT_CONFIG: Partial<TemperatureHumidityCardConfig> = {
   low_battery_threshold: 25
 };
 
+const LABEL_STATES = ["cold", "warm", "dry", "humid", "unavailable"] as const;
+const COLOR_STATES = ["comfortable", "cold", "warm", "dry", "humid", "mixed", "unavailable"] as const;
+
+function stateName(state: string): string {
+  return state.charAt(0).toUpperCase() + state.slice(1);
+}
+
 const FIELD_LABELS: Record<string, string> = {
   title: "Room name",
   icon: "Room icon",
@@ -34,12 +41,21 @@ const FIELD_HELPERS: Record<string, string> = {
   title: "Optional. The temperature sensor name is used when this is blank.",
   icon: "Optional Material Design icon, for example mdi:bed-outline.",
   temperature_entity: "Required temperature sensor. No climate entity is needed.",
-  humidity_entity: "Required relative-humidity sensor.",
+  humidity_entity: "Optional relative-humidity sensor. Leave blank for a temperature-only gauge.",
   battery_entity: "Optional battery sensor. It is shown only when low.",
   history_hours: "Number of hours used for the sparkline and minimum/maximum.",
   show_history: "Hide this for an extra-compact card.",
   low_battery_threshold: "Healthy battery values stay hidden."
 };
+
+for (const state of LABEL_STATES) {
+  FIELD_LABELS[`${state}_label`] = `${stateName(state)} text`;
+  FIELD_HELPERS[`${state}_label`] = `Optional. Defaults to ${stateName(state)}. Combined warnings join the individual texts.`;
+}
+for (const state of COLOR_STATES) {
+  FIELD_LABELS[`${state}_color`] = `${stateName(state)} colour`;
+  FIELD_HELPERS[`${state}_color`] = "Optional hex colour, for example #55d5df. Leave blank for the default.";
+}
 
 export function getConfigForm() {
   return {
@@ -69,7 +85,6 @@ export function getConfigForm() {
           },
           {
             name: "humidity_entity",
-            required: true,
             selector: {
               entity: { domain: "sensor", device_class: "humidity" }
             }
@@ -133,6 +148,26 @@ export function getConfigForm() {
             ]
           }
         ]
+      },
+      {
+        type: "expandable",
+        name: "",
+        title: "Warning text",
+        flatten: true,
+        schema: LABEL_STATES.map((state) => ({
+          name: `${state}_label`,
+          selector: { text: {} }
+        }))
+      },
+      {
+        type: "expandable",
+        name: "",
+        title: "Comfort colours",
+        flatten: true,
+        schema: COLOR_STATES.map((state) => ({
+          name: `${state}_color`,
+          selector: { text: {} }
+        }))
       }
     ],
     computeLabel: (schema: { name?: string }) =>
@@ -149,8 +184,23 @@ export function validateConfig(config: TemperatureHumidityCardConfig): void {
     ["humidity_entity", "Humidity"]
   ] as const) {
     const value = config[field];
+    if (field === "humidity_entity" && (value === undefined || value === "")) continue;
     if (!value || typeof value !== "string") throw new Error(`${label} is required.`);
     if (!value.startsWith("sensor.")) throw new Error(`${label} must be a sensor entity.`);
+  }
+
+  for (const state of LABEL_STATES) {
+    const value = config[`${state}_label`];
+    if (value !== undefined && typeof value !== "string") {
+      throw new Error(`${stateName(state)} text must be a string.`);
+    }
+  }
+  for (const state of COLOR_STATES) {
+    const value = config[`${state}_color`];
+    if (value !== undefined && (typeof value !== "string" ||
+      (value.trim() !== "" && !/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value.trim())))) {
+      throw new Error(`${stateName(state)} colour must be a hex colour such as #55d5df.`);
+    }
   }
 
   const historyHours = config.history_hours ?? 24;

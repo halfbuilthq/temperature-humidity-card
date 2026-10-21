@@ -47,8 +47,9 @@ export function comfortStatus(
   humidity: number | undefined,
   config: TemperatureHumidityCardConfig
 ): ComfortStatus {
-  if (temperature === undefined || humidity === undefined) {
-    return { label: "Unavailable", key: "unavailable" };
+  const hasHumidity = Boolean(config.humidity_entity);
+  if (temperature === undefined || (hasHumidity && humidity === undefined)) {
+    return { label: config.unavailable_label?.trim() || "Unavailable", key: "unavailable" };
   }
 
   const labels: string[] = [];
@@ -56,18 +57,18 @@ export function comfortStatus(
   let humidityKey: "dry" | "humid" | undefined;
 
   if (temperature < (config.cold_threshold ?? 16)) {
-    labels.push("Cold");
+    labels.push(config.cold_label?.trim() || "Cold");
     temperatureKey = "cold";
   } else if (temperature > (config.warm_threshold ?? 26)) {
-    labels.push("Warm");
+    labels.push(config.warm_label?.trim() || "Warm");
     temperatureKey = "warm";
   }
 
-  if (humidity < (config.dry_threshold ?? 35)) {
-    labels.push("Dry");
+  if (hasHumidity && humidity !== undefined && humidity < (config.dry_threshold ?? 35)) {
+    labels.push(config.dry_label?.trim() || "Dry");
     humidityKey = "dry";
-  } else if (humidity > (config.humid_threshold ?? 65)) {
-    labels.push("Humid");
+  } else if (hasHumidity && humidity !== undefined && humidity > (config.humid_threshold ?? 65)) {
+    labels.push(config.humid_label?.trim() || "Humid");
     humidityKey = "humid";
   }
 

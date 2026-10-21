@@ -59,3 +59,26 @@ describe("temperature and humidity values", () => {
     expect(formatNumber(undefined)).toBe("—");
   });
 });
+
+it("classifies temperature alone when humidity is not configured", () => {
+  const temperatureOnly = { ...config, humidity_entity: undefined };
+  expect(comfortStatus(21, undefined, temperatureOnly).key).toBe("comfortable");
+  expect(comfortStatus(13, undefined, temperatureOnly).key).toBe("cold");
+  expect(comfortStatus(28, undefined, temperatureOnly).key).toBe("warm");
+  expect(comfortStatus(undefined, undefined, temperatureOnly).key).toBe("unavailable");
+  expect(comfortStatus(21, undefined, config).key).toBe("unavailable");
+  expect(comfortStatus(21, 99, temperatureOnly).key).toBe("comfortable");
+  expect(comfortStatus(21, undefined, { ...config, humidity_entity: "" }).key)
+    .toBe("comfortable");
+});
+
+it("uses translated warnings and composes mixed states without changing classification", () => {
+  const translated = {
+    ...config, cold_label: " Kalt ", warm_label: "Warm!",
+    dry_label: "Trocken", humid_label: "Feucht", unavailable_label: "Nicht verfügbar"
+  };
+  expect(comfortStatus(13, 30, translated)).toEqual({ label: "Kalt · Trocken", key: "mixed" });
+  expect(comfortStatus(28, 80, translated)).toEqual({ label: "Warm! · Feucht", key: "mixed" });
+  expect(comfortStatus(21, undefined, translated)).toEqual({ label: "Nicht verfügbar", key: "unavailable" });
+  expect(comfortStatus(13, 50, { ...config, cold_label: " " }).label).toBe("Cold");
+});

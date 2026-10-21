@@ -226,6 +226,10 @@ export const cardStyles = css`
     align-items: center;
   }
 
+  .metrics.temperature-only {
+    margin-top: 0;
+  }
+
   .temperature,
   .humidity {
     padding: 0;

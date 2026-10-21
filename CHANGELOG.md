@@ -7,6 +7,20 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-21
+
+### Added
+
+- Optional humidity sensor for a temperature-only gauge, comfort status and history.
+- Custom Cold, Warm, Dry, Humid and Unavailable warning text, including combined warnings.
+- Optional hex colour overrides for each comfort state, including Comfortable and mixed.
+- Warning text and comfort colour settings in the native visual editor.
+
+### Thanks
+
+- Thanks to [@Semir333](https://github.com/Semir333) for the suggestions in
+  [#6](https://github.com/halfbuilthq/temperature-humidity-card/issues/6).
+
 ## [0.1.2] - 2026-10-12
 
 ### Fixed
