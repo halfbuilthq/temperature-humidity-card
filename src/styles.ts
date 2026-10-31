@@ -80,6 +80,10 @@ export const cardStyles = css`
     padding: 16px 16px 13px;
   }
 
+  .card.has-battery-warning {
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+
   .header,
   .room,
   .status,
@@ -92,12 +96,14 @@ export const cardStyles = css`
 
   .header {
     min-width: 0;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
   }
 
   .room {
     min-width: 0;
+    max-width: 100%;
     gap: 9px;
     padding: 4px 2px;
     border: 0;
@@ -126,7 +132,10 @@ export const cardStyles = css`
   }
 
   .status {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     gap: 5px;
     min-height: 28px;
     padding: 0 9px;
@@ -146,10 +155,8 @@ export const cardStyles = css`
   }
 
   .battery-warning {
-    position: absolute;
-    top: 50px;
-    right: 16px;
-    z-index: 2;
+    justify-self: end;
+    margin-top: 4px;
     gap: 5px;
     padding: 0;
     border: 0;
@@ -469,10 +476,6 @@ export const cardStyles = css`
       gap: 4px;
     }
 
-    .room {
-      max-width: 100%;
-    }
-
     .history {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
@@ -485,12 +488,6 @@ export const cardStyles = css`
 
     .range {
       grid-row: 2;
-    }
-
-    .battery-warning {
-      position: static;
-      justify-self: end;
-      margin-top: 4px;
     }
   }
 

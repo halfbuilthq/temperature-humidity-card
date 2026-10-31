@@ -352,7 +352,10 @@ export class TemperatureHumidityCard extends LitElement {
           ? "color-mix(in srgb, var(--ha-card-background, var(--card-background-color, #141a21)) 94%, var(--comfort-accent) 6%)"
           : undefined
       })}>
-        <article class="card" aria-label=${`${title} ${metricDescription}`}>
+        <article
+          class=${showLowBattery ? "card has-battery-warning" : "card"}
+          aria-label=${`${title} ${metricDescription}`}
+        >
           <header class="header">
             <button
               class="room"
