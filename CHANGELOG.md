@@ -7,6 +7,13 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-01
+
+### Fixed
+
+- Keep long custom or translated comfort warnings inside compact cards without hiding the room name.
+- Place the low-battery warning in its own layout row so it cannot overlap a wrapped header.
+
 ## [0.3.0] - 2026-10-21
 
 ### Added
