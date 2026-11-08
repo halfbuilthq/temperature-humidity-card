@@ -7,6 +7,13 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-11-09
+
+### Maintenance
+
+- Update the Vite development dependency from 7.3.6 to 7.3.7 (#9).
+- No card functionality or configuration changes.
+
 ## [0.3.1] - 2026-11-01
 
 ### Fixed
