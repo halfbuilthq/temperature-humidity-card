@@ -64,7 +64,7 @@ const { is: ae, defineProperty: le, getOwnPropertyDescriptor: ce, getOwnProperty
       }
   }
   return e;
-} }, Tt = (r, t) => !ae(r, t), yt = { attribute: !0, type: String, converter: Q, reflect: !1, useDefault: !1, hasChanged: Tt };
+} }, Tt = (r, t) => !ae(r, t), _t = { attribute: !0, type: String, converter: Q, reflect: !1, useDefault: !1, hasChanged: Tt };
 Symbol.metadata ??= /* @__PURE__ */ Symbol("metadata"), q.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
 let k = class extends HTMLElement {
   static addInitializer(t) {
@@ -73,7 +73,7 @@ let k = class extends HTMLElement {
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(t, e = yt) {
+  static createProperty(t, e = _t) {
     if (e.state && (e.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(t) && ((e = Object.create(e)).wrapped = !0), this.elementProperties.set(t, e), !e.noAccessor) {
       const i = /* @__PURE__ */ Symbol(), o = this.getPropertyDescriptor(t, i, e);
       o !== void 0 && le(this.prototype, t, o);
@@ -91,7 +91,7 @@ let k = class extends HTMLElement {
     }, configurable: !0, enumerable: !0 };
   }
   static getPropertyOptions(t) {
-    return this.elementProperties.get(t) ?? yt;
+    return this.elementProperties.get(t) ?? _t;
   }
   static _$Ei() {
     if (this.hasOwnProperty(U("elementProperties"))) return;
@@ -248,14 +248,14 @@ let k = class extends HTMLElement {
   }
 };
 k.elementStyles = [], k.shadowRootOptions = { mode: "open" }, k[U("elementProperties")] = /* @__PURE__ */ new Map(), k[U("finalized")] = /* @__PURE__ */ new Map(), me?.({ ReactiveElement: k }), (q.reactiveElementVersions ??= []).push("2.1.2");
-const nt = globalThis, _t = (r) => r, j = nt.trustedTypes, gt = j ? j.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, Pt = "$lit$", b = `lit$${Math.random().toFixed(9).slice(2)}$`, Ut = "?" + b, fe = `<${Ut}>`, C = document, N = () => C.createComment(""), I = (r) => r === null || typeof r != "object" && typeof r != "function", at = Array.isArray, ye = (r) => at(r) || typeof r?.[Symbol.iterator] == "function", X = `[ 	
+const nt = globalThis, gt = (r) => r, j = nt.trustedTypes, yt = j ? j.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, Pt = "$lit$", b = `lit$${Math.random().toFixed(9).slice(2)}$`, Ut = "?" + b, fe = `<${Ut}>`, C = document, N = () => C.createComment(""), I = (r) => r === null || typeof r != "object" && typeof r != "function", at = Array.isArray, _e = (r) => at(r) || typeof r?.[Symbol.iterator] == "function", X = `[ 	
 \f\r]`, P = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, $t = /-->/g, bt = />/g, w = RegExp(`>|${X}(?:([^\\s"'>=/]+)(${X}*=${X}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), vt = /'/g, xt = /"/g, Rt = /^(?:script|style|textarea|title)$/i, Ot = (r) => (t, ...e) => ({ _$litType$: r, strings: t, values: e }), g = Ot(1), B = Ot(2), E = /* @__PURE__ */ Symbol.for("lit-noChange"), u = /* @__PURE__ */ Symbol.for("lit-nothing"), wt = /* @__PURE__ */ new WeakMap(), A = C.createTreeWalker(C, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), vt = /'/g, xt = /"/g, Rt = /^(?:script|style|textarea|title)$/i, Ot = (r) => (t, ...e) => ({ _$litType$: r, strings: t, values: e }), y = Ot(1), B = Ot(2), E = /* @__PURE__ */ Symbol.for("lit-noChange"), u = /* @__PURE__ */ Symbol.for("lit-nothing"), wt = /* @__PURE__ */ new WeakMap(), A = C.createTreeWalker(C, 129);
 function Nt(r, t) {
   if (!at(r) || !r.hasOwnProperty("raw")) throw Error("invalid template strings array");
-  return gt !== void 0 ? gt.createHTML(t) : t;
+  return yt !== void 0 ? yt.createHTML(t) : t;
 }
-const _e = (r, t) => {
+const ge = (r, t) => {
   const e = r.length - 1, i = [];
   let o, s = t === 2 ? "<svg>" : t === 3 ? "<math>" : "", n = P;
   for (let l = 0; l < e; l++) {
@@ -272,7 +272,7 @@ class D {
     let o;
     this.parts = [];
     let s = 0, n = 0;
-    const l = t.length - 1, a = this.parts, [c, h] = _e(t, e);
+    const l = t.length - 1, a = this.parts, [c, h] = ge(t, e);
     if (this.el = D.createElement(c, i), A.currentNode = this.el.content, e === 2 || e === 3) {
       const d = this.el.content.firstChild;
       d.replaceWith(...d.childNodes);
@@ -280,8 +280,8 @@ class D {
     for (; (o = A.nextNode()) !== null && a.length < l; ) {
       if (o.nodeType === 1) {
         if (o.hasAttributes()) for (const d of o.getAttributeNames()) if (d.endsWith(Pt)) {
-          const f = h[n++], p = o.getAttribute(d).split(b), y = /([.?@])?(.*)/.exec(f);
-          a.push({ type: 1, index: s, name: y[2], strings: p, ctor: y[1] === "." ? $e : y[1] === "?" ? be : y[1] === "@" ? ve : G }), o.removeAttribute(d);
+          const f = h[n++], p = o.getAttribute(d).split(b), _ = /([.?@])?(.*)/.exec(f);
+          a.push({ type: 1, index: s, name: _[2], strings: p, ctor: _[1] === "." ? $e : _[1] === "?" ? be : _[1] === "@" ? ve : G }), o.removeAttribute(d);
         } else d.startsWith(b) && (a.push({ type: 6, index: s }), o.removeAttribute(d));
         if (Rt.test(o.tagName)) {
           const d = o.textContent.split(b), f = d.length - 1;
@@ -310,7 +310,7 @@ function H(r, t, e = r, i) {
   const s = I(t) ? void 0 : t._$litDirective$;
   return o?.constructor !== s && (o?._$AO?.(!1), s === void 0 ? o = void 0 : (o = new s(r), o._$AT(r, e, i)), i !== void 0 ? (e._$Co ??= [])[i] = o : e._$Cl = o), o !== void 0 && (t = H(r, o._$AS(r, t.values), o, i)), t;
 }
-class ge {
+class ye {
   constructor(t, e) {
     this._$AV = [], this._$AN = void 0, this._$AD = t, this._$AM = e;
   }
@@ -357,7 +357,7 @@ class z {
     return this._$AB;
   }
   _$AI(t, e = this) {
-    t = H(this, t, e), I(t) ? t === u || t == null || t === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : t !== this._$AH && t !== E && this._(t) : t._$litType$ !== void 0 ? this.$(t) : t.nodeType !== void 0 ? this.T(t) : ye(t) ? this.k(t) : this._(t);
+    t = H(this, t, e), I(t) ? t === u || t == null || t === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : t !== this._$AH && t !== E && this._(t) : t._$litType$ !== void 0 ? this.$(t) : t.nodeType !== void 0 ? this.T(t) : _e(t) ? this.k(t) : this._(t);
   }
   O(t) {
     return this._$AA.parentNode.insertBefore(t, this._$AB);
@@ -372,7 +372,7 @@ class z {
     const { values: e, _$litType$: i } = t, o = typeof i == "number" ? this._$AC(t) : (i.el === void 0 && (i.el = D.createElement(Nt(i.h, i.h[0]), this.options)), i);
     if (this._$AH?._$AD === o) this._$AH.p(e);
     else {
-      const s = new ge(o, this), n = s.u(this.options);
+      const s = new ye(o, this), n = s.u(this.options);
       s.p(e), this.T(n), this._$AH = s;
     }
   }
@@ -389,8 +389,8 @@ class z {
   }
   _$AR(t = this._$AA.nextSibling, e) {
     for (this._$AP?.(!1, !0, e); t !== this._$AB; ) {
-      const i = _t(t).nextSibling;
-      _t(t).remove(), t = i;
+      const i = gt(t).nextSibling;
+      gt(t).remove(), t = i;
     }
   }
   setConnected(t) {
@@ -547,6 +547,8 @@ const It = "important", Me = " !" + It, Le = Se(class extends ke {
   history_hours: 24,
   show_history: !0,
   color_mode: "state",
+  gauge_min_temperature: -20,
+  gauge_max_temperature: 40,
   cold_threshold: 16,
   warm_threshold: 26,
   dry_threshold: 35,
@@ -563,6 +565,8 @@ const It = "important", Me = " !" + It, Le = Se(class extends ke {
   ...Z.map((r) => `${r}_color`)
 ], Pe = [
   "history_hours",
+  "gauge_min_temperature",
+  "gauge_max_temperature",
   "cold_threshold",
   "warm_threshold",
   "dry_threshold",
@@ -581,6 +585,8 @@ const V = {
   history_hours: "Trend period",
   show_history: "Show trend and daily range",
   color_mode: "Colour mode",
+  gauge_min_temperature: "Temperature scale minimum",
+  gauge_max_temperature: "Temperature scale maximum",
   cold_threshold: "Cold below",
   warm_threshold: "Warm above",
   dry_threshold: "Dry below",
@@ -595,6 +601,8 @@ const V = {
   history_hours: "Number of hours used for the sparkline and minimum/maximum.",
   show_history: "Hide this for an extra-compact card.",
   color_mode: "Automatic gradient blends Cold, Comfortable, Warm, Dry and Humid colours as readings change. Fixed colours use one colour per state.",
+  gauge_min_temperature: "Lower end of the coloured temperature gauge, in the sensor's units.",
+  gauge_max_temperature: "Upper end of the coloured temperature gauge, in the sensor's units.",
   low_battery_threshold: "Healthy battery values stay hidden."
 };
 for (const r of ct)
@@ -670,6 +678,24 @@ function Re() {
                 unit_of_measurement: "%"
               }
             }
+          }
+        ]
+      },
+      {
+        type: "expandable",
+        name: "",
+        title: "Temperature scale",
+        flatten: !0,
+        schema: [
+          {
+            type: "grid",
+            name: "",
+            flatten: !0,
+            column_min_width: "180px",
+            schema: [
+              { name: "gauge_min_temperature", selector: { number: { step: 0.5 } } },
+              { name: "gauge_max_temperature", selector: { number: { step: 0.5 } } }
+            ]
           }
         ]
       },
@@ -770,6 +796,8 @@ function Oe(r) {
     throw new Error("Trend period must be between 1 and 168 hours.");
   if ((r.cold_threshold ?? 16) >= (r.warm_threshold ?? 26))
     throw new Error("Cold threshold must be lower than warm threshold.");
+  if ((r.gauge_min_temperature ?? -20) >= (r.gauge_max_temperature ?? 40))
+    throw new Error("Temperature scale minimum must be lower than maximum.");
   if ((r.dry_threshold ?? 35) >= (r.humid_threshold ?? 65))
     throw new Error("Dry threshold must be lower than humid threshold.");
 }
@@ -856,8 +884,8 @@ function je(r, t, e) {
     key: s ?? n ?? "comfortable"
   };
 }
-function We(r) {
-  return r === void 0 ? 0 : Math.min(100, Math.max(0, (r - 5) / 30 * 100));
+function We(r, t = -20, e = 40) {
+  return r === void 0 || e <= t ? 0 : Math.min(100, Math.max(0, (r - t) / (e - t) * 100));
 }
 function qe(r, t = 25) {
   return r !== void 0 && r <= t;
@@ -891,11 +919,11 @@ function Et(r, t) {
 async function Ge(r, t, e, i, o = /* @__PURE__ */ new Date()) {
   const s = Math.min(168, Math.max(1, i)), n = new Date(o.getTime() - s * 60 * 60 * 1e3), l = [t, e].filter(Boolean).join(","), a = `history/period/${encodeURIComponent(n.toISOString())}?end_time=${encodeURIComponent(o.toISOString())}&filter_entity_id=${encodeURIComponent(l)}&significant_changes_only=0`, c = await r.callApi("GET", a), h = Ct(c, t), d = e ? Ct(c, e) : [];
   return Array.from({ length: At }, (f, p) => {
-    const y = n.getTime() + p / (At - 1) * (o.getTime() - n.getTime());
+    const _ = n.getTime() + p / (At - 1) * (o.getTime() - n.getTime());
     return {
-      timestamp: y,
-      temperature: Et(h, y),
-      humidity: Et(d, y)
+      timestamp: _,
+      temperature: Et(h, _),
+      humidity: Et(d, _)
     };
   });
 }
@@ -1627,13 +1655,17 @@ const W = class W extends R {
   render() {
     const t = this._config;
     if (!t) return u;
-    const e = Y(this.hass, t.temperature_entity), i = !!t.humidity_entity, o = i ? "temperature and humidity" : "temperature", s = Y(this.hass, t.humidity_entity), n = Y(this.hass, t.battery_entity), l = O(e), a = O(s), c = O(n), h = je(l, a, t), d = Ke(l, a, h.key, t), f = We(l), p = Fe(this.hass, e), y = t.title || e?.attributes.friendly_name?.replace(/ temperature$/i, "") || "Room climate", m = this._history.length > 1 ? this._history : er(l, a, t.history_hours ?? 24), v = m.map((_) => _.temperature).filter((_) => _ !== void 0), Wt = v.length ? Math.min(...v) : l, qt = v.length ? Math.max(...v) : l, dt = m.map((_) => _.temperature), Gt = ze(dt), S = this._activeChartIndex === void 0 ? void 0 : Math.min(m.length - 1, Math.max(0, this._activeChartIndex)), T = S === void 0 ? void 0 : m[S], K = S === void 0 ? void 0 : Ve(dt, S), x = S === void 0 ? void 0 : De(S, m.length), Zt = x !== void 0 && x > 50 ? "place-left" : "place-right", Kt = `left: ${x ?? 0}%`, Xt = T ? new Intl.DateTimeFormat(this._locale, {
+    const e = Y(this.hass, t.temperature_entity), i = !!t.humidity_entity, o = i ? "temperature and humidity" : "temperature", s = Y(this.hass, t.humidity_entity), n = Y(this.hass, t.battery_entity), l = O(e), a = O(s), c = O(n), h = je(l, a, t), d = Ke(l, a, h.key, t), f = We(
+      l,
+      t.gauge_min_temperature,
+      t.gauge_max_temperature
+    ), p = Fe(this.hass, e), _ = t.title || e?.attributes.friendly_name?.replace(/ temperature$/i, "") || "Room climate", m = this._history.length > 1 ? this._history : er(l, a, t.history_hours ?? 24), v = m.map((g) => g.temperature).filter((g) => g !== void 0), Wt = v.length ? Math.min(...v) : l, qt = v.length ? Math.max(...v) : l, dt = m.map((g) => g.temperature), Gt = ze(dt), S = this._activeChartIndex === void 0 ? void 0 : Math.min(m.length - 1, Math.max(0, this._activeChartIndex)), T = S === void 0 ? void 0 : m[S], K = S === void 0 ? void 0 : Ve(dt, S), x = S === void 0 ? void 0 : De(S, m.length), Zt = x !== void 0 && x > 50 ? "place-left" : "place-right", Kt = `left: ${x ?? 0}%`, Xt = T ? new Intl.DateTimeFormat(this._locale, {
       month: "short",
       day: "numeric",
       hour: "numeric",
       minute: "2-digit"
     }).format(T.timestamp) : "", Yt = h.key !== "comfortable", ut = qe(c, t.low_battery_threshold ?? 25);
-    return g`
+    return y`
       <ha-card class=${h.key} style=${Le({
       "--comfort-accent": d,
       "--comfort-accent-soft": d ? "color-mix(in srgb, var(--comfort-accent) 16%, transparent)" : void 0,
@@ -1641,19 +1673,19 @@ const W = class W extends R {
     })}>
         <article
           class=${ut ? "card has-battery-warning" : "card"}
-          aria-label=${`${y} ${o}`}
+          aria-label=${`${_} ${o}`}
         >
           <header class="header">
             <button
               class="room"
               type="button"
               @click=${() => this._openMoreInfo(t.temperature_entity)}
-              aria-label=${`Open ${y} temperature details`}
+              aria-label=${`Open ${_} temperature details`}
             >
               <ha-icon icon=${t.icon || "mdi:home-thermometer-outline"}></ha-icon>
-              <h1>${y}</h1>
+              <h1>${_}</h1>
             </button>
-            ${Yt ? g`
+            ${Yt ? y`
                   <span class="status" title=${h.label}>
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d=${Je(h.key)}></path>
@@ -1663,7 +1695,7 @@ const W = class W extends R {
                 ` : u}
           </header>
 
-          ${ut ? g`
+          ${ut ? y`
                 <button
                   class="battery-warning"
                   type="button"
@@ -1688,7 +1720,7 @@ const W = class W extends R {
               >
                 ${$(l, this._locale)}<small>${p}</small>
               </button>
-              ${i ? g`
+              ${i ? y`
                     <button
                       class="humidity"
                       type="button"
@@ -1705,9 +1737,9 @@ const W = class W extends R {
             </div>
           </section>
 
-          ${t.show_history === !1 ? u : g`
+          ${t.show_history === !1 ? u : y`
                 <footer class="history">
-                  ${this._historyLoading && this._history.length === 0 ? g`<span class="history-placeholder">Loading history…</span>` : this._historyFailed && this._history.length === 0 ? g`<span class="history-placeholder">History unavailable</span>` : g`
+                  ${this._historyLoading && this._history.length === 0 ? y`<span class="history-placeholder">Loading history…</span>` : this._historyFailed && this._history.length === 0 ? y`<span class="history-placeholder">History unavailable</span>` : y`
                           <span class="range">
                             Min
                             <strong>${$(Wt, this._locale)}${p}</strong>
@@ -1717,11 +1749,11 @@ const W = class W extends R {
                             role="group"
                             tabindex="0"
                             aria-label=${`Inspect ${t.history_hours ?? 24} hour ${o} history. Use the left and right arrow keys to move through readings.`}
-                            @pointerdown=${(_) => this._inspectChart(_, m.length)}
-                            @pointermove=${(_) => this._inspectChart(_, m.length)}
+                            @pointerdown=${(g) => this._inspectChart(g, m.length)}
+                            @pointermove=${(g) => this._inspectChart(g, m.length)}
                             @pointerleave=${this._leaveChart}
                             @pointercancel=${this._clearChartInspection}
-                            @keydown=${(_) => this._navigateChart(_, m.length)}
+                            @keydown=${(g) => this._navigateChart(g, m.length)}
                             @blur=${this._clearChartInspection}
                           >
                             <svg
@@ -1757,7 +1789,7 @@ const W = class W extends R {
                                     ></circle>
                                   ` : u}
                             </svg>
-                            ${T && x !== void 0 ? g`
+                            ${T && x !== void 0 ? y`
                                   <div
                                     class="chart-tooltip ${Zt}"
                                     style=${Kt}
@@ -1773,7 +1805,7 @@ const W = class W extends R {
     )}${p}</strong
                                       >
                                     </div>
-                                    ${i ? g`
+                                    ${i ? y`
                                           <div class="tooltip-item humidity-series">
                                             <span><i></i>Humidity</span>
                                             <strong

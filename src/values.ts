@@ -82,9 +82,14 @@ export function comfortStatus(
   };
 }
 
-export function gaugeProgress(value: number | undefined): number {
+export function gaugeProgress(
+  value: number | undefined,
+  minimum = -20,
+  maximum = 40
+): number {
   if (value === undefined) return 0;
-  return Math.min(100, Math.max(0, ((value - 5) / 30) * 100));
+  if (maximum <= minimum) return 0;
+  return Math.min(100, Math.max(0, ((value - minimum) / (maximum - minimum)) * 100));
 }
 
 export function lowBattery(

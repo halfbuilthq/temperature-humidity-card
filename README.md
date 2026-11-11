@@ -38,6 +38,8 @@ history_hours: 24
 show_history: true
 cold_threshold: 16
 warm_threshold: 26
+gauge_min_temperature: -20
+gauge_max_temperature: 40
 dry_threshold: 35
 humid_threshold: 65
 low_battery_threshold: 25
@@ -46,6 +48,10 @@ low_battery_threshold: 25
 Only `temperature_entity` is required. Omit `humidity_entity` for a temperature-only gauge. The card never
 requires or controls a `climate` entity. Battery state is displayed only when
 it is at or below `low_battery_threshold`.
+The coloured temperature gauge spans `gauge_min_temperature` to
+`gauge_max_temperature` (defaults `-20` to `40` in the sensor's units), so
+outdoor readings below zero are represented correctly. Values outside that
+range are clamped to either end.
 
 ### Minimal configuration
 

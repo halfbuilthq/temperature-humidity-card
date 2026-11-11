@@ -47,6 +47,8 @@ describe("temperature humidity card config", () => {
     ).toMatchObject({
       history_hours: 24,
       show_history: true,
+      gauge_min_temperature: -20,
+      gauge_max_temperature: 40,
       cold_threshold: 16,
       warm_threshold: 26,
       dry_threshold: 35,
@@ -155,7 +157,7 @@ it("keeps entity selectors editable while cleared or partially selected", () => 
 
 it("keeps number fields editable through clearing and temporary range errors", () => {
   const form = getConfigForm();
-  for (const field of ["history_hours", "cold_threshold", "warm_threshold", "dry_threshold", "humid_threshold", "low_battery_threshold"]) {
+  for (const field of ["history_hours", "gauge_min_temperature", "gauge_max_temperature", "cold_threshold", "warm_threshold", "dry_threshold", "humid_threshold", "low_battery_threshold"]) {
     // HA's number selector emits undefined for empty or incomplete numeric input.
     for (const value of [undefined, -1, 0, 1, 1.5, 200]) {
       expect(() => form.assertConfig({ ...minimal, [field]: value })).not.toThrow();
@@ -167,6 +169,11 @@ it("keeps number fields editable through clearing and temporary range errors", (
   }
   expect(() => validateConfig({ ...minimal, history_hours: 0 })).toThrow("Trend period");
   expect(() => validateConfig({ ...minimal, cold_threshold: 30, warm_threshold: 26 })).toThrow("Cold threshold");
+  expect(() => validateConfig({
+    ...minimal,
+    gauge_min_temperature: 10,
+    gauge_max_temperature: -10
+  })).toThrow("Temperature scale minimum");
   expect(() => validateConfig({ ...minimal, dry_threshold: 70, humid_threshold: 65 })).toThrow("Dry threshold");
 });
 

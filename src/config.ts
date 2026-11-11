@@ -9,6 +9,8 @@ export const DEFAULT_CONFIG: Partial<TemperatureHumidityCardConfig> = {
   history_hours: 24,
   show_history: true,
   color_mode: "state",
+  gauge_min_temperature: -20,
+  gauge_max_temperature: 40,
   cold_threshold: 16,
   warm_threshold: 26,
   dry_threshold: 35,
@@ -25,7 +27,8 @@ const STRING_FIELDS = [
   ...COLOR_STATES.map((state) => `${state}_color` as const)
 ] as const;
 const NUMBER_FIELDS = [
-  "history_hours", "cold_threshold", "warm_threshold", "dry_threshold",
+  "history_hours", "gauge_min_temperature", "gauge_max_temperature",
+  "cold_threshold", "warm_threshold", "dry_threshold",
   "humid_threshold", "low_battery_threshold"
 ] as const;
 const HEX_COLOR_PATTERN = /^#(?:[\da-f]{3}|[\da-f]{6})$/i;
@@ -43,6 +46,8 @@ const FIELD_LABELS: Record<string, string> = {
   history_hours: "Trend period",
   show_history: "Show trend and daily range",
   color_mode: "Colour mode",
+  gauge_min_temperature: "Temperature scale minimum",
+  gauge_max_temperature: "Temperature scale maximum",
   cold_threshold: "Cold below",
   warm_threshold: "Warm above",
   dry_threshold: "Dry below",
@@ -59,6 +64,8 @@ const FIELD_HELPERS: Record<string, string> = {
   history_hours: "Number of hours used for the sparkline and minimum/maximum.",
   show_history: "Hide this for an extra-compact card.",
   color_mode: "Automatic gradient blends Cold, Comfortable, Warm, Dry and Humid colours as readings change. Fixed colours use one colour per state.",
+  gauge_min_temperature: "Lower end of the coloured temperature gauge, in the sensor's units.",
+  gauge_max_temperature: "Upper end of the coloured temperature gauge, in the sensor's units.",
   low_battery_threshold: "Healthy battery values stay hidden."
 };
 
@@ -140,6 +147,24 @@ export function getConfigForm() {
                 unit_of_measurement: "%"
               }
             }
+          }
+        ]
+      },
+      {
+        type: "expandable",
+        name: "",
+        title: "Temperature scale",
+        flatten: true,
+        schema: [
+          {
+            type: "grid",
+            name: "",
+            flatten: true,
+            column_min_width: "180px",
+            schema: [
+              { name: "gauge_min_temperature", selector: { number: { step: 0.5 } } },
+              { name: "gauge_max_temperature", selector: { number: { step: 0.5 } } }
+            ]
           }
         ]
       },
@@ -252,6 +277,9 @@ export function validateConfig(config: TemperatureHumidityCardConfig): void {
   }
   if ((config.cold_threshold ?? 16) >= (config.warm_threshold ?? 26)) {
     throw new Error("Cold threshold must be lower than warm threshold.");
+  }
+  if ((config.gauge_min_temperature ?? -20) >= (config.gauge_max_temperature ?? 40)) {
+    throw new Error("Temperature scale minimum must be lower than maximum.");
   }
   if ((config.dry_threshold ?? 35) >= (config.humid_threshold ?? 65)) {
     throw new Error("Dry threshold must be lower than humid threshold.");

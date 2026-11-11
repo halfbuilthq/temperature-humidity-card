@@ -42,10 +42,13 @@ describe("temperature and humidity values", () => {
   });
 
   it("maps temperatures to the visual gauge range", () => {
-    expect(gaugeProgress(5)).toBe(0);
-    expect(gaugeProgress(20)).toBe(50);
-    expect(gaugeProgress(35)).toBe(100);
+    expect(gaugeProgress(-20)).toBe(0);
+    expect(gaugeProgress(10)).toBe(50);
+    expect(gaugeProgress(40)).toBe(100);
     expect(gaugeProgress(50)).toBe(100);
+    expect(gaugeProgress(-10, -30, 30)).toBeCloseTo(33.333);
+    expect(gaugeProgress(20, -30, 30)).toBeCloseTo(83.333);
+    expect(gaugeProgress(10, 20, 10)).toBe(0);
   });
 
   it("shows battery only at or below the configured threshold", () => {

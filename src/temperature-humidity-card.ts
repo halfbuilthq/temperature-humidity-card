@@ -295,7 +295,11 @@ export class TemperatureHumidityCard extends LitElement {
     const battery = numericState(batteryEntity);
     const status = comfortStatus(temperature, humidity, config);
     const accent = comfortAccent(temperature, humidity, status.key, config);
-    const progress = gaugeProgress(temperature);
+    const progress = gaugeProgress(
+      temperature,
+      config.gauge_min_temperature,
+      config.gauge_max_temperature
+    );
     const unit = temperatureUnit(this.hass, temperatureEntity);
     const title =
       config.title ||
