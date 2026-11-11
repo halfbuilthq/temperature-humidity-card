@@ -3,14 +3,17 @@ import type {
   TemperatureHumidityCardConfig
 } from "./types";
 
+export const DEFAULT_GAUGE_MIN_TEMPERATURE = 5;
+export const DEFAULT_GAUGE_MAX_TEMPERATURE = 35;
+
 export const DEFAULT_CONFIG: Partial<TemperatureHumidityCardConfig> = {
   title: "",
   icon: "mdi:home-thermometer-outline",
   history_hours: 24,
   show_history: true,
   color_mode: "state",
-  gauge_min_temperature: -20,
-  gauge_max_temperature: 40,
+  gauge_min_temperature: DEFAULT_GAUGE_MIN_TEMPERATURE,
+  gauge_max_temperature: DEFAULT_GAUGE_MAX_TEMPERATURE,
   cold_threshold: 16,
   warm_threshold: 26,
   dry_threshold: 35,
@@ -278,7 +281,9 @@ export function validateConfig(config: TemperatureHumidityCardConfig): void {
   if ((config.cold_threshold ?? 16) >= (config.warm_threshold ?? 26)) {
     throw new Error("Cold threshold must be lower than warm threshold.");
   }
-  if ((config.gauge_min_temperature ?? -20) >= (config.gauge_max_temperature ?? 40)) {
+  const gaugeMin = config.gauge_min_temperature ?? DEFAULT_GAUGE_MIN_TEMPERATURE;
+  const gaugeMax = config.gauge_max_temperature ?? DEFAULT_GAUGE_MAX_TEMPERATURE;
+  if (gaugeMin >= gaugeMax) {
     throw new Error("Temperature scale minimum must be lower than maximum.");
   }
   if ((config.dry_threshold ?? 35) >= (config.humid_threshold ?? 65)) {

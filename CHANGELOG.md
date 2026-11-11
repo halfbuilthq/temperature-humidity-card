@@ -7,12 +7,17 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-## [0.4.0] - 2026-11-11
+## [0.4.0] - 2026-11-12
 
 ### Added
 
-- Configurable temperature gauge limits with defaults of -20 to 40, including
-  support for outdoor readings below zero.
+- Configurable temperature gauge limits support outdoor readings below zero.
+  Existing cards keep the default range of 5 to 35.
+
+### Thanks
+
+- Thanks to [@BicycleJohny](https://github.com/BicycleJohny) for contributing
+  configurable temperature gauge limits in [PR #10](https://github.com/halfbuilthq/temperature-humidity-card/pull/10).
 
 ## [0.3.2] - 2026-11-09
 

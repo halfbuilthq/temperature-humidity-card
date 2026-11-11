@@ -1,3 +1,4 @@
+import { DEFAULT_GAUGE_MAX_TEMPERATURE, DEFAULT_GAUGE_MIN_TEMPERATURE } from "./config";
 import type {
   ComfortStatus,
   HassEntity,
@@ -84,8 +85,8 @@ export function comfortStatus(
 
 export function gaugeProgress(
   value: number | undefined,
-  minimum = -20,
-  maximum = 40
+  minimum = DEFAULT_GAUGE_MIN_TEMPERATURE,
+  maximum = DEFAULT_GAUGE_MAX_TEMPERATURE
 ): number {
   if (value === undefined) return 0;
   if (maximum <= minimum) return 0;

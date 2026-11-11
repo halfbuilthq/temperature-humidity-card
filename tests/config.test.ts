@@ -47,8 +47,8 @@ describe("temperature humidity card config", () => {
     ).toMatchObject({
       history_hours: 24,
       show_history: true,
-      gauge_min_temperature: -20,
-      gauge_max_temperature: 40,
+      gauge_min_temperature: 5,
+      gauge_max_temperature: 35,
       cold_threshold: 16,
       warm_threshold: 26,
       dry_threshold: 35,

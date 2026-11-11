@@ -41,10 +41,18 @@ describe("temperature and humidity values", () => {
     expect(comfortStatus(undefined, 50, config).key).toBe("unavailable");
   });
 
-  it("maps temperatures to the visual gauge range", () => {
-    expect(gaugeProgress(-20)).toBe(0);
-    expect(gaugeProgress(10)).toBe(50);
-    expect(gaugeProgress(40)).toBe(100);
+  it("keeps the existing gauge range when no limits are configured", () => {
+    expect(gaugeProgress(5)).toBe(0);
+    expect(gaugeProgress(20)).toBe(50);
+    expect(gaugeProgress(35)).toBe(100);
+  });
+
+  it("maps temperatures to custom gauge limits", () => {
+    expect(gaugeProgress(-20, -20, 40)).toBe(0);
+    expect(gaugeProgress(10, -20, 40)).toBe(50);
+    expect(gaugeProgress(40, -20, 40)).toBe(100);
+    expect(gaugeProgress(10, -15)).toBe(50);
+    expect(gaugeProgress(25, undefined, 45)).toBe(50);
     expect(gaugeProgress(50)).toBe(100);
     expect(gaugeProgress(-10, -30, 30)).toBeCloseTo(33.333);
     expect(gaugeProgress(20, -30, 30)).toBeCloseTo(83.333);
