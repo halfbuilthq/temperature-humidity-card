@@ -7,6 +7,13 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-11
+
+### Added
+
+- Configurable temperature gauge limits with defaults of -20 to 40, including
+  support for outdoor readings below zero.
+
 ## [0.3.2] - 2026-11-09
 
 ### Maintenance
